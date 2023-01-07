@@ -1,9 +1,19 @@
 #!/bin/sh
-while [ True ]
+main=True
+while [ $main == True ]
 do
     clear
+
+    ## ERROR CHECKING
+    if [[ $error == "1" ]]
+    then
+        echo if you are seeing this, something went wrong.
+    else
+        sleep 0.01
+    fi
+    echo $error
     echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    echo             Bab RPG Game Launcher
+    echo            Bab RPG Game Launcher
     echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     echo
     echo 1. Play
@@ -12,18 +22,21 @@ do
     echo
     read -p "> " inpt
 
-
+    try
     if [[ $inpt == 1 ]]
     then
-        bash /workspaces/codespaces-blank/Launcher/resources/game.sh
+        bash .resources/start.sh
     fi
     if [[ $inpt == 2 ]]
     then
-        echo TODO: Add options menu
+        bash .resources/.options.sh
     fi
     if [[ $inpt == 3 ]]
     then
-        break
+        main=False
     fi
 done
+clear
 echo Goodbye!
+sleep 5
+clear

@@ -1,45 +1,90 @@
 #!/bin/sh
-read -p "Input a username: " player
-echo Hello, $player!
+pwd
+cd .resources
+pwd
 sleep 3
+## FIND USERNAME
+
+player=$(grep -o '"username":.*[^\\]",' .username.json | sed 's/"username":\s*"\(.*\)"\s*,/\1/')
+
+#if [[ $player == "" ]]
+#then
+#    player="Player"
+#else
+#    echo
+#fi
+
+## INIT ERROR HANDELING VARIABLE
+error="error"
 clear
+
 ## MAIN GAME CODE
 alive=1
+
 ## Entity Health
 enemyHealth=50
 enemyMax=50
+
 ## Enemy Name
 enemy=Thing
+
 ## Monster Attack Strength
 mAttak=20
-## Player Name
 
 ## Player Health
 playerHealth=100
 playerMax=100
+
 # Player Attack Strength
 attk=25
+
 ## Player XP
 xp=0
+
 ## Player XP Multiplier
 xpMulti=1
 
 ## FUNCTIONS
+error() {
+    if [[ $error == "error" ]]
+    then
+        echo if your seeing this, it means that i messed up somehow.
+        sleep 3
+        clear
+        echo going back to title in 3 . . .
+        sleep 1
+        clear 
+        echo going back to title in 2 . . .
+        sleep 1
+        clear 
+        echo going back to title in 1 . . .
+    else
+        echo
+    fi
+}
+
 main() {
+    if [[ $alive == 0 ]]
+    then
+        break
+    else
+        echo
+    fi
     echo AHHHHH
     sleep 0.2
     deathMessage="Player Choked on Air"
     clear
-    echo Health: $playerHealth/$playerMax
+    echo $player: $playerHealth/$playerMax
     echo XP: $xp
     echo Attack: $attk
-    echo
+    echo $alive
     echo What would you like to do?
     echo
     echo 1. Wander
     echo 2. Inventory
     echo 3. Die i guess
     echo 4. Exit
+    echo $1
     read -p "> " mainChoice
 
     if [[ $mainChoice == "1" ]]
@@ -56,7 +101,12 @@ main() {
     fi
     if [[ $mainChoice == "4" ]]
     then
+        error="no error"
         exit
+    fi
+    if [[ $mainChoice == "5" ]]
+    then
+        error
     fi
 }
 
@@ -122,7 +172,8 @@ fight() {
     done
 }
 
-while [ $alive="1" ]
+while [ $alive=1 ]
 do
     main
 done
+
