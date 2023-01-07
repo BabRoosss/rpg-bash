@@ -1,4 +1,8 @@
 #!/bin/sh
+read -p "Input a username: " player
+echo Hello, $player!
+sleep 3
+clear
 ## MAIN GAME CODE
 alive=1
 ## Entity Health
@@ -36,17 +40,11 @@ main() {
     echo 2. Inventory
     echo 3. Die i guess
     echo 4. Exit
-    echo $RANDOM % 2 + 1 | bc
     read -p "> " mainChoice
 
     if [[ $mainChoice == "1" ]]
     then
-        if [[ $RANDOM == 1 ]]
-        then
-            fight
-        else
-            xpGain
-        fi 
+        fight
     fi
     if [[ $mainChoice == "2" ]]
     then
@@ -69,6 +67,7 @@ xpGain() {
 }
 
 win() {
+    break
     echo You won!
     sleep 5
     main
@@ -82,38 +81,45 @@ lose() {
 }
 
 monsterAttk() {
-    echo Monster dealt $mAttak damage!
+    echo $enemy attacked $player and dealt $mAttk damage!
+    sleep 2
+    playerHealth=$(expr $playerHealth - $mAttk)
 }
 
 fight() {
-    deathMessage="Player looked at Thing for too long"
-    if [[ $enemyHealth == 0 ]]
-    then
-        win
-    fi
-    echo Enemy $enemy appears!
-    echo $enemy $enemyHealth/$enemyMax
-    echo 1-Attack 2-Flee
-    echo $usr $playerHealth/$playerMax
-    read -p ":: " choice
+    while [ fighting == 1 ]
+    do
+        clear
+        deathMessage="Player looked at Thing for too long"
+        if [[ $enemyHealth == 0 ]]
+        then
+            win
+        fi
+        echo Enemy $enemy appears!
+        echo $enemy $enemyHealth/$enemyMax
+        echo 1-Attack 2-Flee
+        echo $player $playerHealth/$playerMax
+        read -p ":: " choice
 
 
-    if [[ $choice == "1" ]]
-    then
-        echo You attacked $enemy and dealt $attk damage!
-        sleep 2
-        enemyHealth=$(expr $enemyHealth - $attk)
-    fi
-    if [[ $choice == "2" ]]
-    then
-        echo You ran away!
-        win
-    fi
-    if [[ $choice == "dave" ]]
-    then
-        cat /dev/random
-    fi
-    clear
+        if [[ $choice == "1" ]]
+        then
+            echo You attacked $enemy and dealt $attk damage!
+            sleep 2
+            enemyHealth=$(expr $enemyHealth - $attk)
+        fi
+        if [[ $choice == "2" ]]
+        then
+            echo You ran away!
+            win
+        fi
+        if [[ $choice == "dave" ]]
+        then
+            cat /dev/random
+        fi
+        monsterAttk
+        clear
+    done
 }
 
 while [ $alive="1" ]
