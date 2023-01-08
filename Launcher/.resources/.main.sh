@@ -1,18 +1,15 @@
 #!/bin/sh
-pwd
 cd .resources
-pwd
-sleep 3
 ## FIND USERNAME
 
-player=$(grep -o '"username":.*[^\\]",' .username.json | sed 's/"username":\s*"\(.*\)"\s*,/\1/')
+username=$(jq -r .username username.json)
 
-#if [[ $player == "" ]]
-#then
-#    player="Player"
-#else
-#    echo
-#fi
+if [[ $username == "" ]]
+then
+    username="Player"
+else
+    echo
+fi
 
 ## INIT ERROR HANDELING VARIABLE
 error="error"
@@ -72,9 +69,9 @@ main() {
     fi
     echo AHHHHH
     sleep 0.2
-    deathMessage="Player Choked on Air"
+    deathMessage="$username Choked on Air"
     clear
-    echo $player: $playerHealth/$playerMax
+    echo $username: $playerHealth/$playerMax
     echo XP: $xp
     echo Attack: $attk
     echo $alive
@@ -137,12 +134,14 @@ monsterAttk() {
 }
 
 fight() {
-    while [ fighting == 1 ]
+    fighting=1
+    while [ True ]
     do
         clear
         deathMessage="Player looked at Thing for too long"
         if [[ $enemyHealth == 0 ]]
         then
+            fighting=0
             win
         fi
         echo Enemy $enemy appears!
@@ -161,13 +160,14 @@ fight() {
         if [[ $choice == "2" ]]
         then
             echo You ran away!
+            fighting=0
             win
         fi
         if [[ $choice == "dave" ]]
         then
             cat /dev/random
         fi
-        monsterAttk
+        # monsterAttk
         clear
     done
 }

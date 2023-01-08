@@ -15,7 +15,7 @@ do
     if [[ $option == 1 ]]
     then
         read -p "Input a username: " player
-        echo "{\"username\": \"$player\"}" > .username.json
+        echo "{\"username\": \"$player\"}" > username.json
         echo Username changed to $player!
         sleep 3
     fi
