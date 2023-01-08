@@ -26,7 +26,7 @@ enemyMax=50
 enemy=Thing
 
 ## Monster Attack Strength
-mAttak=20
+mAttk=20
 
 ## Player Health
 playerHealth=100
@@ -39,7 +39,7 @@ attk=25
 xp=0
 
 ## Player XP Multiplier
-xpMulti=1
+xpMulti="1"
 
 ## FUNCTIONS
 error() {
@@ -60,6 +60,20 @@ error() {
     fi
 }
 
+shop() {
+    clear
+    echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
+    echo \# 1. Healing Potion                                                    
+    echo \# 2. Sword
+    echo \# 3. 5 XP
+    echo \# 4. Exit
+    echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
+    read -p "$ " shop
+
+    echo TODO: Implement later
+    sleep 2
+}
+
 main() {
     if [[ $alive == 0 ]]
     then
@@ -71,10 +85,12 @@ main() {
     sleep 0.2
     deathMessage="$username Choked on Air"
     clear
+    echo $additionalMessage
+    randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
     echo $username: $playerHealth/$playerMax
     echo XP: $xp
     echo Attack: $attk
-    echo $alive
+    echo 
     echo What would you like to do?
     echo
     echo 1. Wander
@@ -86,7 +102,54 @@ main() {
 
     if [[ $mainChoice == "1" ]]
     then
-        fight
+        randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
+        if [[ $randEncounter == 1 ]]
+        then
+            fight
+        fi
+        if [[ $randEncounter == 2 ]]
+        then
+            xpGain
+        fi
+        if [[ $randEncounter == 3 ]]
+        then
+            shop
+        fi
+        if [[ $randEncounter == 4 ]]
+        then
+            echo 4
+            sleep 1
+        fi
+        if [[ $randEncounter == 5 ]]
+        then
+            echo 5
+            sleep 1
+        fi
+        if [[ $randEncounter == 6 ]]
+        then
+            echo 6
+            sleep 1
+        fi
+        if [[ $randEncounter == 7 ]]
+        then
+            echo 7
+            sleep 1
+        fi
+        if [[ $randEncounter == 8 ]]
+        then
+            echo 8
+            sleep 1
+        fi
+        if [[ $randEncounter == 9 ]]
+        then
+            echo 9
+            sleep 1
+        fi
+        if [[ $randEncounter == 10 ]]
+        then
+            echo 10
+            sleep 1
+        fi
     fi
     if [[ $mainChoice == "2" ]]
     then
@@ -101,23 +164,28 @@ main() {
         error="no error"
         exit
     fi
+    if [[ $mainChoice == "reload" ]]
+    then
+        bash start.sh
+    fi
     if [[ $mainChoice == "5" ]]
     then
-        error
+        shop
     fi
 }
 
 xpGain() {
-    xp=$(expr $xp + 15 * $xpMulti)
+    clear
+    xp=$(expr $xp + 15)
     echo You got XP!
+    sleep 3
     main
 }
 
 win() {
-    break
     echo You won!
     sleep 5
-    main
+    xpGain
 }
 
 lose() {
@@ -128,7 +196,7 @@ lose() {
 }
 
 monsterAttk() {
-    echo $enemy attacked $player and dealt $mAttk damage!
+    echo $enemy attacked $username and dealt $mAttk damage!
     sleep 2
     playerHealth=$(expr $playerHealth - $mAttk)
 }
@@ -141,13 +209,12 @@ fight() {
         deathMessage="Player looked at Thing for too long"
         if [[ $enemyHealth == 0 ]]
         then
-            fighting=0
             win
         fi
         echo Enemy $enemy appears!
         echo $enemy $enemyHealth/$enemyMax
         echo 1-Attack 2-Flee
-        echo $player $playerHealth/$playerMax
+        echo $username $playerHealth/$playerMax
         read -p ":: " choice
 
 
@@ -167,7 +234,13 @@ fight() {
         then
             cat /dev/random
         fi
-        # monsterAttk
+        if [[ $enemyHealth == 0 ]]
+        then
+            additionalMessage="$username killed $enemy"
+            win
+
+        fi
+        monsterAttk
         clear
     done
 }
