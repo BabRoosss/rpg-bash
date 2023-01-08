@@ -2,7 +2,7 @@
 main=True
 while [ $main == True ]
 do
-    clear
+
 
     ## ERROR CHECKING
     if [[ $error == "1" ]]
@@ -22,7 +22,6 @@ do
     echo
     read -p "> " inpt
 
-    try
     if [[ $inpt == 1 ]]
     then
         bash .resources/start.sh
@@ -40,3 +39,4 @@ clear
 echo Goodbye!
 sleep 5
 clear
+exit

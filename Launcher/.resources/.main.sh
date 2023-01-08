@@ -1,8 +1,17 @@
 #!/bin/sh
 cd .resources
-## FIND USERNAME
+## FIND PLAYER STATS
 
-username=$(jq -r .username username.json)
+playerHealth=$(jq -r .health data/playerStats.json)
+gold=$(jq -r .gold data/playerStats.json)
+username=$(jq -r .username data/username.json)
+
+if [[ $playerHealth == $null ]]
+then
+    jq '.health="100"' data/playerStats.json
+else
+    echo
+fi
 
 if [[ $username == "" ]]
 then
@@ -13,7 +22,7 @@ fi
 
 ## INIT ERROR HANDELING VARIABLE
 error="error"
-clear
+#clear
 
 ## MAIN GAME CODE
 alive=1
@@ -29,7 +38,6 @@ enemy=Thing
 mAttk=20
 
 ## Player Health
-playerHealth=100
 playerMax=100
 
 # Player Attack Strength
@@ -60,20 +68,6 @@ error() {
     fi
 }
 
-shop() {
-    clear
-    echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-    echo \# 1. Healing Potion                                                    
-    echo \# 2. Sword
-    echo \# 3. 5 XP
-    echo \# 4. Exit
-    echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-    read -p "$ " shop
-
-    echo TODO: Implement later
-    sleep 2
-}
-
 main() {
     if [[ $alive == 0 ]]
     then
@@ -82,13 +76,15 @@ main() {
         echo
     fi
     echo AHHHHH
+    playerHealth=$(jq -r .health data/playerStats.json)
     sleep 0.2
     deathMessage="$username Choked on Air"
-    clear
+    #clear
     echo $additionalMessage
     randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
     echo $username: $playerHealth/$playerMax
     echo XP: $xp
+    echo Gold: $gold
     echo Attack: $attk
     echo 
     echo What would you like to do?
@@ -98,6 +94,7 @@ main() {
     echo 3. Die i guess
     echo 4. Exit
     echo $1
+    pwd
     read -p "> " mainChoice
 
     if [[ $mainChoice == "1" ]]
@@ -162,6 +159,7 @@ main() {
     if [[ $mainChoice == "4" ]]
     then
         error="no error"
+#       bash ../main.sh
         exit
     fi
     if [[ $mainChoice == "reload" ]]
@@ -170,7 +168,12 @@ main() {
     fi
     if [[ $mainChoice == "5" ]]
     then
-        shop
+        bash .shop.sh
+    fi
+    if [[ $mainChoice == "6" ]]
+    then
+        addedGold=$(expr $gold + 5 )
+        jq '.location="$addedGold"' data/playerStats.json
     fi
 }
 
@@ -199,6 +202,8 @@ monsterAttk() {
     echo $enemy attacked $username and dealt $mAttk damage!
     sleep 2
     playerHealth=$(expr $playerHealth - $mAttk)
+    echo "{\"health\": \"$playerHealth\"}" > data/playerStats.json
+
 }
 
 fight() {
