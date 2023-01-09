@@ -6,9 +6,10 @@ playerHealth=$(jq -r .health data/playerStats.json)
 gold=$(jq -r .gold data/playerStats.json)
 username=$(jq -r .username data/username.json)
 
-if [[ $playerHealth == $null ]]
+if [[ $playerHealth == "" ]]
 then
-    jq '.health="100"' data/playerStats.json
+    cat {\"gold\": \"25\", 
+        \"health\": \"100\"} > data/playerStats.json
 else
     echo
 fi
@@ -16,13 +17,14 @@ fi
 if [[ $username == "" ]]
 then
     username="Player"
+    echo {\"username\": \"Player\"} > data/username.json
 else
     echo
 fi
 
 ## INIT ERROR HANDELING VARIABLE
 error="error"
-#clear
+clear
 
 ## MAIN GAME CODE
 alive=1
@@ -79,7 +81,7 @@ main() {
     playerHealth=$(jq -r .health data/playerStats.json)
     sleep 0.2
     deathMessage="$username Choked on Air"
-    #clear
+    clear
     echo $additionalMessage
     randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
     echo $username: $playerHealth/$playerMax

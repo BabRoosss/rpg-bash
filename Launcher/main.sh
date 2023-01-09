@@ -1,9 +1,8 @@
 #!/bin/sh
 main=True
+username=$(jq -r .username .resources/data/username.json)
 while [ $main == True ]
 do
-
-
     ## ERROR CHECKING
     if [[ $error == "1" ]]
     then
@@ -11,10 +10,13 @@ do
     else
         sleep 0.01
     fi
+    clear
     echo $error
     echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     echo            Bab RPG Game Launcher
     echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    echo
+    echo Username: $username
     echo
     echo 1. Play
     echo 2. Options
