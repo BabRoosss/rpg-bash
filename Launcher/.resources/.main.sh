@@ -1,5 +1,6 @@
 #!/bin/sh
 cd .resources
+clear
 ## FIND PLAYER STATS
 
 playerHealth=$(jq -r .health data/playerStats.json)
@@ -70,6 +71,10 @@ error() {
 }
 
 main() {
+    if [[ $playerHealth == 0 ]]
+    then
+        bash .gameOver.sh
+    fi
     if [[ $alive == 0 ]]
     then
         break
@@ -77,7 +82,6 @@ main() {
         echo
     fi
     echo AHHHHH
-    playerHealth=$(jq -r .health data/playerStats.json)
     sleep 0.2
     deathMessage="$username Choked on Air"
     clear
@@ -102,7 +106,7 @@ main() {
         randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
         if [[ $randEncounter == 1 ]]
         then
-            fight
+            bash .fight.sh
         fi
         if [[ $randEncounter == 2 ]]
         then
@@ -110,12 +114,11 @@ main() {
         fi
         if [[ $randEncounter == 3 ]]
         then
-            shop
+            bash .shop.sh
         fi
         if [[ $randEncounter == 4 ]]
         then
-            echo 4
-            sleep 1
+            bash .hotSpring.sh
         fi
         if [[ $randEncounter == 5 ]]
         then
@@ -197,57 +200,9 @@ lose() {
     exit
 }
 
-monsterAttk() {
-    echo $enemy attacked $username and dealt $mAttk damage!
-    sleep 2
-    playerHealth=$(expr $playerHealth - $mAttk)
-    echo "{\"health\": \"$playerHealth\"}" > data/playerStats.json
-
-}
-
-fight() {
-    fighting=1
-    while [ True ]
-    do
-        clear
-        deathMessage="Player looked at Thing for too long"
-        if [[ $enemyHealth == 0 ]]
-        then
-            win
-        fi
-        echo Enemy $enemy appears!
-        echo $enemy $enemyHealth/$enemyMax
-        echo 1-Attack 2-Flee
-        echo $username $playerHealth/$playerMax
-        read -p ":: " choice
-
-
-        if [[ $choice == "1" ]]
-        then
-            echo You attacked $enemy and dealt $attk damage!
-            sleep 2
-            enemyHealth=$(expr $enemyHealth - $attk)
-        fi
-        if [[ $choice == "2" ]]
-        then
-            echo You ran away!
-            fighting=0
-            win
-        fi
-        if [[ $choice == "dave" ]]
-        then
-            cat /dev/random
-        fi
-        if [[ $enemyHealth == 0 ]]
-        then
-            additionalMessage="$username killed $enemy"
-            win
-
-        fi
-        monsterAttk
-        clear
-    done
-}
+#fight() {
+#    
+#}
 
 while [ $alive=1 ]
 do
