@@ -22,8 +22,9 @@ do
 monsterAttk() {
     echo $enemy attacked $username and dealt $mAttk damage!
     sleep 2
+
     playerHealth=$(expr $playerHealth - $mAttk)
-    echo "{\"health\": \"$playerHealth\"}" > data/playerStats.json
+    sed -i '$s/}/,\n"health":"'$playerHealth'"}/' data/playerStats.json
 
 }
 

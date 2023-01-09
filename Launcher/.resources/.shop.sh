@@ -1,7 +1,13 @@
 #!/bin/sh
 
 gold=$(jq -r .gold data/playerStats.json)
-
+username=$(jq -r .username data/username.json)
+if [[ $gold == 0 || $gold < 0 ]]
+then
+    echo Sorry, $username, I can\'t give credit! Come back when you\'re a little, mmm, RICHER!
+    sleep 5
+    bash .main.sh   
+fi
 clear
 echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 echo \# Gold: $gold
@@ -15,7 +21,7 @@ read -p "$ " shop
 
 if [[ $shop == 1 ]]
 then
-
+    
     health=$(jq -r .health data/playerStats.json)
     
     if [[ $health < 100 ]]

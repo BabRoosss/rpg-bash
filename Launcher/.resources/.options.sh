@@ -46,7 +46,9 @@ do
             then
                 rm data/*.json
                 cp data/playerStatsTemplate.dat data/playerStats.json
+                cp data/inventory.dat data/inventory.json
                 touch data/username.json
+                touch data/tmp.json
             else
                 echo Canceling . . .
             fi

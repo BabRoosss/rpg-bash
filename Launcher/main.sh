@@ -1,5 +1,7 @@
 #!/bin/sh
 main=True
+cd ..
+cd Launcher
 username=$(jq -r .username .resources/data/username.json)
 while [ $main == True ]
 do
@@ -41,4 +43,4 @@ clear
 echo Goodbye!
 sleep 5
 clear
-exit
+$SHELL

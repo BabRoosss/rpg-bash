@@ -7,6 +7,14 @@ playerHealth=$(jq -r .health data/playerStats.json)
 gold=$(jq -r .gold data/playerStats.json)
 username=$(jq -r .username data/username.json)
 
+## FETCH INVENTORY
+inv1=$(jq -r .inv1 data/inventory.json)
+inv2=$(jq -r .inv2 data/inventory.json)
+inv3=$(jq -r .inv3 data/inventory.json)
+inv4=$(jq -r .inv4 data/inventory.json)
+
+## CHECK IF NEW PLAYER OF RECENTLY DELETED SAVE
+
 if [[ $playerHealth == "" ]]
 then
     data/playerStatsTemplate.dat > data/playerStats.json
@@ -70,7 +78,17 @@ error() {
     fi
 }
 
+## MAIN GAME LOOP
+
 main() {
+    ## FETCH INVENTORY
+    inv1=$(jq -r .inv1 data/inventory.json)
+    inv2=$(jq -r .inv2 data/inventory.json)
+    inv3=$(jq -r .inv3 data/inventory.json)
+    inv4=$(jq -r .inv4 data/inventory.json)
+    playerHealth=$(jq -r .health data/playerStats.json)
+
+
     if [[ $playerHealth == 0 ]]
     then
         bash .gameOver.sh
@@ -86,6 +104,7 @@ main() {
     deathMessage="$username Choked on Air"
     clear
     echo $additionalMessage
+    additionalMessage=""
     randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
     echo $username: $playerHealth/$playerMax
     echo XP: $xp
@@ -122,7 +141,7 @@ main() {
         fi
         if [[ $randEncounter == 5 ]]
         then
-            echo 5
+            foundGold
             sleep 1
         fi
         if [[ $randEncounter == 6 ]]
@@ -162,7 +181,7 @@ main() {
     if [[ $mainChoice == "4" ]]
     then
         error="no error"
-        exit
+        bash ../main.sh
     fi
     if [[ $mainChoice == "reload" ]]
     then
@@ -179,10 +198,34 @@ main() {
     fi
 }
 
+## INVENTORY MANAGER
+
+inventory() {
+    echo Inventory Slots
+    echo 1. $inv1
+    echo 2. $inv2
+    echo 3. $inv3
+    echo 4. $inv4
+    read -p ">> " inv
+}
+
+foundGold() {
+    clear
+    additionalMessage="$username found gold!"
+    echo You found 10 gold on the ground!
+    echo +10 Gold
+    addedGold=$(expr $gold + 10)
+    sed -i '$s/}/,\n"gold":"'$addedGold'"}/' data/playerStats.json
+    sleep 3
+    main
+}
+
 xpGain() {
     clear
+    additionalMessage="$username found XP"
     xp=$(expr $xp + 15)
     echo You got XP!
+    echo +15 XP
     sleep 3
     main
 }
