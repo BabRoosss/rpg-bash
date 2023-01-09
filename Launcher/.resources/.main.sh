@@ -8,8 +8,7 @@ username=$(jq -r .username data/username.json)
 
 if [[ $playerHealth == "" ]]
 then
-    cat {\"gold\": \"25\", 
-        \"health\": \"100\"} > data/playerStats.json
+    data/playerStatsTemplate.dat > data/playerStats.json
 else
     echo
 fi
@@ -95,8 +94,7 @@ main() {
     echo 2. Inventory
     echo 3. Die i guess
     echo 4. Exit
-    echo $1
-    pwd
+    echo 
     read -p "> " mainChoice
 
     if [[ $mainChoice == "1" ]]
@@ -161,7 +159,6 @@ main() {
     if [[ $mainChoice == "4" ]]
     then
         error="no error"
-#       bash ../main.sh
         exit
     fi
     if [[ $mainChoice == "reload" ]]
