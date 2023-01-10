@@ -5,4 +5,4 @@ this is a generic text based rpg
 Run the main.sh file in the Launcher directory and play the game.
 
 ## Native Windows Port
-There is no Windows port yet, however, 
+There is no Windows port yet.

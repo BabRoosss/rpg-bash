@@ -1,3 +1,4 @@
 @echo off
-echo Now, why are you digging through the files?
-echo Get outta here!
+xidel -s config.json -e "$json/(.//apps)()/id"   # or in full: $json/(nodes)()/(apps)()/id
+value1
+value2
