@@ -1,10 +1,12 @@
 @echo off
-:LOOP
-clear
+:cls
+for /l %x in (1, 1, 100) do echo.
 
-echo AHHHHH
+
+:cls
+
+:main
 set deathMessage="username Choked on Air"
-clear
 echo %additionalMessage%
 set additionalMessage=""
 ::randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
