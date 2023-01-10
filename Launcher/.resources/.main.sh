@@ -226,6 +226,7 @@ xpGain() {
     xp=$(expr $xp + 15)
     echo You got XP!
     echo +15 XP
+    echo { \"xp\": \"$xp\"}
     sleep 3
     main
 }

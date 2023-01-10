@@ -45,9 +45,11 @@ do
             if [[ $confirm == "Delete User Data" ]]
             then
                 rm data/*.json
-                cp data/playerStatsTemplate.dat data/playerStats.json
-                cp data/inventory.dat data/inventory.json
-                touch data/username.json
+                cp data/templates/playerStatsTemplate.dat data/playerStats.json
+                cp data/templates/inventory.dat data/inventory.json
+                cp data/templates/level.dat data/level.json
+                cp data/templates/xp.dat data/xp.json
+                touch data/username.json 
                 touch data/tmp.json
             else
                 echo Canceling . . .

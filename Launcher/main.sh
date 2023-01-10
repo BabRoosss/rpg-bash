@@ -22,7 +22,8 @@ do
     echo
     echo 1. Play
     echo 2. Options
-    echo 3. Exit
+    echo 3. About
+    echo 4. Exit
     echo
     read -p "> " inpt
 
@@ -35,6 +36,10 @@ do
         bash .resources/.options.sh
     fi
     if [[ $inpt == 3 ]]
+    then
+        bash .resources/.about.sh
+    fi
+    if [[ $inpt == 4 ]]
     then
         main=False
     fi
