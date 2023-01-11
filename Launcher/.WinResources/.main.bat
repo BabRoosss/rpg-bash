@@ -1,9 +1,11 @@
 @echo off
 :cls
-for /l %x in (1, 1, 100) do echo.
-
-
-:cls
+set loopcount=100
+:loop
+echo.
+set /a loopcount=loopcount-1
+if %loopcount%==0 goto main
+goto loop
 
 :main
 set deathMessage="username Choked on Air"
@@ -23,7 +25,7 @@ echo 3. Die i guess
 echo 4. Exit
 echo.
 
-set /p mainChoice=">"
+set /p mainChoice=^>
 echo %mainChoice%
 if %mainChoice%==1 goto :randEncounter
 if %mainChoice%==2 goto :inventory
