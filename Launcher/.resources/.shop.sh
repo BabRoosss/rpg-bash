@@ -4,10 +4,10 @@ gold=$(jq -r .gold data/playerStats.json)
 username=$(jq -r .username data/username.json)
 if [[ $gold == 0 || $gold < 0 ]]
 then
-    echo Sorry, $username, I can\'t give credit! Come back when you\'re a little, mmm, RICHER!
-    sleep 5
-    bash .main.sh   
+    echo poor lol
+    sleep 2
 fi
+
 clear
 echo \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 echo \# Gold: $gold
@@ -27,6 +27,8 @@ then
     if [[ $health < 100 ]]
     then
         echo Sorry! I can\'t sell you this potion! Your health is already max!
+        echo $health
+        sleep 5
     else
         
         potionHealth=1

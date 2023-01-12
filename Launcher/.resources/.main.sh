@@ -87,7 +87,7 @@ main() {
     inv3=$(jq -r .inv3 data/inventory.json)
     inv4=$(jq -r .inv4 data/inventory.json)
     playerHealth=$(jq -r .health data/playerStats.json)
-
+    gold=$(jq -r .gold data/playerStats.json)
 
     if [[ $playerHealth == 0 ]]
     then
@@ -161,8 +161,7 @@ main() {
         fi
         if [[ $randEncounter == 9 ]]
         then
-            echo 9
-            sleep 1
+            bash .fight.sh
         fi
         if [[ $randEncounter == 10 ]]
         then
