@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#Check if player still has gold.
 gold=$(jq -r .gold data/playerStats.json)
 username=$(jq -r .username data/username.json)
 if [[ $gold == 0 || $gold < 0 ]]
@@ -22,8 +23,10 @@ read -p "$ " shop
 if [[ $shop == 1 ]]
 then
     
+    # Get health as variable.
     health=$(jq -r .health data/playerStats.json)
     
+    # Is the players health over or at 100?
     if [[ $health < 100 ]]
     then
         echo Sorry! I can\'t sell you this potion! Your health is already max!

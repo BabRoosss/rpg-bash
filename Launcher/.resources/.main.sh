@@ -81,7 +81,7 @@ error() {
 ## MAIN GAME LOOP
 
 main() {
-    ## FETCH INVENTORY
+    ## FETCH INVENTORY & HEALTH
     inv1=$(jq -r .inv1 data/inventory.json)
     inv2=$(jq -r .inv2 data/inventory.json)
     inv3=$(jq -r .inv3 data/inventory.json)
@@ -89,6 +89,7 @@ main() {
     playerHealth=$(jq -r .health data/playerStats.json)
     gold=$(jq -r .gold data/playerStats.json)
 
+    # Make sure player isnt dead
     if [[ $playerHealth == 0 ]]
     then
         bash .gameOver.sh
@@ -101,11 +102,19 @@ main() {
     fi
     echo AHHHHH
     sleep 0.2
+
+    # Set default death message
     deathMessage="$username Choked on Air"
     clear
+
+    # Obsolete?
     echo $additionalMessage
     additionalMessage=""
+
+    # Select random number for random encounter
     randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
+
+    # Player stats
     echo $username: $playerHealth/$playerMax
     echo XP: $xp
     echo Gold: $gold
@@ -122,6 +131,8 @@ main() {
 
     if [[ $mainChoice == "1" ]]
     then
+
+        # Random encounter handler.
         randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
         if [[ $randEncounter == 1 ]]
         then
@@ -169,36 +180,47 @@ main() {
             sleep 1
         fi
     fi
+
     if [[ $mainChoice == "2" ]]
     then
+        # Open inventory
         inventory
     fi
+
     if [[ $mainChoice == "3" ]]
     then
+        # Player dies
         lose
     fi
+
     if [[ $mainChoice == "4" ]]
     then
+        # Exit
         error="no error"
         bash ../main.sh
     fi
+
     if [[ $mainChoice == "reload" ]]
     then
+        # Reset the game //DEBUG FUNCTION
         bash start.sh
     fi
+
     if [[ $mainChoice == "5" ]]
     then
+        # Open shop // DEBUG FUNCTION
         bash .shop.sh
     fi
+
     if [[ $mainChoice == "6" ]]
     then
+        # +5 gold // DEBUG FUNCTION
         addedGold=$(expr $gold + 5 )
         jq '.location="$addedGold"' data/playerStats.json
     fi
 }
 
-## INVENTORY MANAGER
-
+## INVENTORY MANAGER // TODO: IMPLEMENT PROPPER INVENTORY MANAGER
 inventory() {
     echo Inventory Slots
     echo 1. $inv1
@@ -208,6 +230,7 @@ inventory() {
     read -p ">> " inv
 }
 
+# Randomly find gold
 foundGold() {
     clear
     additionalMessage="$username found gold!"
@@ -219,6 +242,7 @@ foundGold() {
     main
 }
 
+# Randomly find XP
 xpGain() {
     clear
     additionalMessage="$username found XP"
@@ -230,12 +254,14 @@ xpGain() {
     main
 }
 
+# Win fight
 win() {
     echo You won!
     sleep 5
     xpGain
 }
 
+# Lose fight and print death message.
 lose() {
     echo $deathMessage
     sleep 5
@@ -243,10 +269,7 @@ lose() {
     exit
 }
 
-#fight() {
-#    
-#}
-
+# Main Loop // Needed?
 while [ $alive=1 ]
 do
     main

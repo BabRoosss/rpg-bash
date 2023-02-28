@@ -16,6 +16,8 @@ playerMax=100
 
 # Player Attack Strength
 attk=25
+
+# Main loop
 while [ True ]
 do
 

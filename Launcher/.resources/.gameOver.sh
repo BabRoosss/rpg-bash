@@ -7,13 +7,17 @@ echo Try Again?
 read -p [Y/N] again
 if [[ $again == "Y" || $again == "y" ]]
 then
-    echo Again
+    # Clear health and start over
+    echo Here we go . . .
     rm -rf data/playerStats.json
     cp data/playerStatsTemplate.dat data/playerStats.json
+    sleep 3
     bash .main.sh
 else
-    echo Again\'t
+    # Clear health and exit to menu
+    echo GAME OVER
     rm -rf data/playerStats.json
     cp data/playerStatsTemplate.dat data/playerStats.json
+    sleep 3
     bash ../main.sh
 fi
