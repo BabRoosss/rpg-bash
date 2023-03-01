@@ -109,7 +109,6 @@ main() {
 
     # Obsolete?
     echo $additionalMessage
-    additionalMessage=""
 
     # Select random number for random encounter
     randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
@@ -245,7 +244,6 @@ foundGold() {
 # Randomly find XP
 xpGain() {
     clear
-    additionalMessage="$username found XP"
     xp=$(expr $xp + 15)
     echo You got XP!
     echo +15 XP
@@ -256,6 +254,7 @@ xpGain() {
 
 # Win fight
 win() {
+    additionalMessage="$username won a fight against a $enemy"
     echo You won!
     sleep 5
     xpGain
@@ -269,7 +268,7 @@ lose() {
     exit
 }
 
-# Main Loop // Needed?
+# Main Loop
 while [ $alive=1 ]
 do
     main
