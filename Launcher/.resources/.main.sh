@@ -3,15 +3,15 @@ cd .resources
 clear
 ## FIND PLAYER STATS
 
-playerHealth=$(jq -r .health data/playerStats.json)
-gold=$(jq -r .gold data/playerStats.json)
-username=$(jq -r .username data/username.json)
+playerHealth=$(cat data/health.dat | grep Health: )
+gold=$(cat data/gold.dat | grep Gold: )
+username=$(cat data/username.dat | grep Username:)
 
 ## FETCH INVENTORY
-inv1=$(jq -r .inv1 data/inventory.json)
-inv2=$(jq -r .inv2 data/inventory.json)
-inv3=$(jq -r .inv3 data/inventory.json)
-inv4=$(jq -r .inv4 data/inventory.json)
+inv4=$(cat data/inventory.dat | grep Slot 1:)
+inv4=$(cat data/inventory.dat | grep Slot 2:)
+inv4=$(cat data/inventory.dat | grep Slot 3:)
+inv4=$(cat data/inventory.dat | grep Slot 4:)
 
 ## CHECK IF NEW PLAYER OF RECENTLY DELETED SAVE
 
@@ -25,7 +25,7 @@ fi
 if [[ $username == "" ]]
 then
     username="Player"
-    echo {\"username\": \"Player\"} > data/username.json
+    echo Username: Player > data/username.dat
 else
     echo
 fi
@@ -82,12 +82,13 @@ error() {
 
 main() {
     ## FETCH INVENTORY & HEALTH
-    inv1=$(jq -r .inv1 data/inventory.json)
-    inv2=$(jq -r .inv2 data/inventory.json)
-    inv3=$(jq -r .inv3 data/inventory.json)
-    inv4=$(jq -r .inv4 data/inventory.json)
-    playerHealth=$(jq -r .health data/playerStats.json)
-    gold=$(jq -r .gold data/playerStats.json)
+    playerHealth=$(cat data/health.dat | grep Health: )
+    gold=$(cat data/gold.dat | grep Gold: )
+    username=$(cat data/username.dat | grep Username:)
+    inv1=$(cat data/inventory.dat | grep Slot 1:)
+    inv2=$(cat data/inventory.dat | grep Slot 2:)
+    inv3=$(cat data/inventory.dat | grep Slot 3:)
+    inv4=$(cat data/inventory.dat | grep Slot 4:)
 
     # Make sure player isnt dead
     if [[ $playerHealth == 0 ]]
@@ -166,7 +167,11 @@ main() {
         fi
         if [[ $randEncounter == 8 ]]
         then
-            echo 8
+            # casino elf
+            echo You encounter an elf. He offers to let you put 5 gold in for a chance to double it. 
+            echo If the dice is not in your favour, you will lose 10 gold. Do you accept?
+
+            
             sleep 1
         fi
         if [[ $randEncounter == 9 ]]
@@ -175,6 +180,11 @@ main() {
         fi
         if [[ $randEncounter == 10 ]]
         then
+            # add the devil
+            # STATS:
+            # name: destroyer of the plane of existence
+            # health: ?/?
+            # attack: a lot
             echo 10
             sleep 1
         fi
@@ -215,7 +225,8 @@ main() {
     then
         # +5 gold // DEBUG FUNCTION
         addedGold=$(expr $gold + 5 )
-        jq '.location="$addedGold"' data/playerStats.json
+        playerHealth=$(cat data/health.dat | grep Health: )
+        gold=$(cat data/gold.dat | grep Gold: )
     fi
 }
 

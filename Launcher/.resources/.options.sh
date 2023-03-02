@@ -19,7 +19,7 @@ do
     then
         # Changing username
         read -p "Input a username: " player
-        echo "{\"username\": \"$player\"}" > data/username.json
+        echo Username: $player > data/username.dat
         echo Username changed to $player!
         sleep 3
     fi
@@ -52,13 +52,17 @@ do
             if [[ $confirm == "Delete User Data" ]]
             then
                 # Remove all data and copy in defaults.
+                
+                #leagacy support
                 rm data/*.json
-                cp data/templates/playerStatsTemplate.dat data/playerStats.json
-                cp data/templates/inventory.dat data/inventory.json
-                cp data/templates/level.dat data/level.json
-                cp data/templates/xp.dat data/xp.json
-                touch data/username.json 
-                touch data/tmp.json
+
+                rm data/*.dat   
+                cp data/templates/health.dat data/health.dat
+                cp data/templates/inventory.dat data/inventory.dat
+                cp data/templates/level.dat data/level.dat
+                cp data/templates/xp.dat data/xp.dat
+                touch data/username.dat 
+                touch data/tmp.dat
             else
                 echo Canceling . . .
             fi
