@@ -1,4 +1,10 @@
 #!/bin/sh
+
+# Check if debug mode is enabled
+cat data/debug.dat | grep debug
+read
+if [[  ]]
+
 cd .resources
 clear
 ## FIND PLAYER STATS
@@ -209,19 +215,19 @@ main() {
         bash ../main.sh
     fi
 
-    if [[ $mainChoice == "reload" ]]
+    if [[ $mainChoice == "reload" && debug == "enabled" ]]
     then
         # Reset the game //DEBUG FUNCTION
         bash start.sh
     fi
 
-    if [[ $mainChoice == "5" ]]
+    if [[ $mainChoice == "5" && debug == "enabled" ]]
     then
         # Open shop // DEBUG FUNCTION
         bash .shop.sh
     fi
 
-    if [[ $mainChoice == "6" ]]
+    if [[ $mainChoice == "6" && debug == "enabled"]]
     then
         # +5 gold // DEBUG FUNCTION
         addedGold=$(expr $gold + 5 )
@@ -247,7 +253,7 @@ foundGold() {
     echo You found 10 gold on the ground!
     echo +10 Gold
     addedGold=$(expr $gold + 10)
-    sed -i '$s/}/,\n"gold":"'$addedGold'"}/' data/playerStats.json
+    echo $addedGold > data/gold.dat
     sleep 3
     main
 }
@@ -258,7 +264,7 @@ xpGain() {
     xp=$(expr $xp + 15)
     echo You got XP!
     echo +15 XP
-    echo { \"xp\": \"$xp\"} > data/xp.json
+    echo $xp > data/xp.dat
     sleep 3
     main
 }

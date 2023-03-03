@@ -2,7 +2,7 @@
 main=True
 cd ..
 cd Launcher
-username=$(jq -r .username .resources/data/username.json)
+username=$(cat .resources/data/username.dat)
 while [ $main == True ]
 do
     ## ERROR CHECKING
