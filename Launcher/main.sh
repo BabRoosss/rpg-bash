@@ -4,12 +4,12 @@ pwd
 error2=$(cat errorHandling/error.dat)
 errorMessage2=$(cat errorHandling/errorMessage.dat)
 main=True
-username=$(cat .resources/data/username.dat)
+username=$(cat .resources/data/playerName.dat)
 while [ $main == True ]
 do
     error2=$(cat .resources/errorHandling/error.dat)
     errorMessage2=$(cat .resources/errorHandling/errorMessage.dat)
-    username=$(cat .resources/data/username.dat)
+    username=$(cat .resources/data/playerName.dat)
     ## ERROR CHECKING
     if [[ $error2 == "1" ]]
     then

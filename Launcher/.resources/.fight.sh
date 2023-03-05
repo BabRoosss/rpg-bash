@@ -1,34 +1,35 @@
 #!/bin/sh
 fighting=1
-playerHealth=
+
 ## Entity Health
-enemyHealth=$()
-enemyMax=
+enemyHealth=$(cat data/monsterData/$monsterChosen/health.dat)
+enemyMax=$(cat data/monsterData/$monsterChosen/maxHealth.dat)
 
 ## Enemy Name
-enemy=Thing
+enemy=$(cat data/monsterData/$monsterChosen/name.dat)
 
 ## Monster Attack Strength
-mAttk=20
+mAttk=$(cat data/monsterData/$monsterChosen/attack.dat)
 
 ## Player Health
-playerMax=100
+playerHealth=$(cat data/playerHealth.dat)
+playerMax=$(cat data/playerMaxHealth.dat)
 
 # Player Attack Strength
-attk=25
+attk=$(cat data/playerAttack.dat)
 
 # Main loop
 while [ True ]
 do
 
-monsterAttk() {
-    echo $enemy attacked $username and dealt $mAttk damage!
-    sleep 2
+    monsterAttk() {
+        echo $enemy attacked $username and dealt $mAttk damage!
+        sleep 2
 
-    playerHealth=$(expr $playerHealth - $mAttk)
-    sed -i '$s/}/,\n"health":"'$playerHealth'"}/' data/playerStats.json
+        playerHealth=$(expr $playerHealth - $mAttk)
+        echo $playerHealth > data/playerHealth.dat
 
-}
+    }
 
     clear
     deathMessage="Player looked at Thing for too long"
@@ -74,5 +75,5 @@ monsterAttk() {
         bash .gameOver.sh
     fi
     monsterAttk
-   clear
+    clear
 done

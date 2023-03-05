@@ -19,7 +19,7 @@ do
     then
         # Changing username
         read -p "Input a username: " player
-        echo $player > data/username.dat
+        echo $player > data/playerName.dat
         echo Username changed to $player!
         sleep 3
     fi

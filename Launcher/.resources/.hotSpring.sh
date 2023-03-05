@@ -14,7 +14,7 @@ fi
 if [[ $rest == "Y" || $rest == "y" || $rest == "" ]]
 then
     #Get health
-    health=$(cat data/health.dat)
+    health=$(cat data/playerHealth.dat)
 
     # Check if health is over 100
     if [[ $health -ge "100" ]]
@@ -22,7 +22,7 @@ then
         echo
     else
         addedHealth=$(expr $health + 15)
-        echo $addedHealth > data/health.dat
+        echo $addedHealth > data/playerHealth.dat
     fi
 
     echo Rested

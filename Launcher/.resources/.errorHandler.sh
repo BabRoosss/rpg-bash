@@ -2,41 +2,41 @@
 
 echo checked > errorHandling/errorCheckStatus.dat
 
-playerHealth=$(cat data/health.dat | grep Health: )
-gold=$(cat data/gold.dat | grep Gold: )
-inv1=$(cat data/inventory.dat | grep Slot 1:)
-inv2=$(cat data/inventory.dat | grep Slot 2:)
-inv3=$(cat data/inventory.dat | grep Slot 3:)
-inv4=$(cat data/inventory.dat | grep Slot 4:)
+playerHealth=$(cat data/playerHealth.dat)
+gold=$(cat data/playerGold.dat)
+inv1=$(cat data/playerInventory.dat | grep Slot 1:)
+inv2=$(cat data/playerInventory.dat | grep Slot 2:)
+inv3=$(cat data/playerInventory.dat | grep Slot 3:)
+inv4=$(cat data/playerInventory.dat | grep Slot 4:)
 
 if [[ $playerHealth == "" ]]
 then
-    echo ERROR > data/health.dat
+    echo ERROR > data/playerHealth.dat
 fi
 
 if [[ $gold == "" ]]
 then
-    echo ERROR > data/gold.dat
+    echo ERROR > data/playerGold.dat
 fi
 
 if [[ $inv1 == "" ]]
 then
-    echo ERROR > data/inventory.dat
+    echo ERROR > data/playerInventory.dat
 fi
 
 if [[ $inv2 == "" ]]
 then
-    echo ERROR > data/inventory.dat
+    echo ERROR > data/playerInventory.dat
 fi
 
 if [[ $inv3 == "" ]]
 then
-    echo ERROR > data/inventory.dat
+    echo ERROR > data/playerInventory.dat
 fi
 
 if [[ $inv4 == "" ]]
 then
-    echo ERROR > data/inventory.dat
+    echo ERROR > data/playerInventory.dat
 fi
 
 bash .main.sh 

@@ -2,13 +2,14 @@
 cd .resources
 fetch() {
     errorCheck=$(cat errorHandling/errorCheckStatus.dat)
-    playerHealth=$(cat data/health.dat)
-    gold=$(cat data/gold.dat)
-    username=$(cat data/username.dat)
-    inv1=$(cat data/inventory.dat | grep Slot 1:)
-    inv2=$(cat data/inventory.dat | grep Slot 2:)
-    inv3=$(cat data/inventory.dat | grep Slot 3:)
-    inv4=$(cat data/inventory.dat | grep Slot 4:)
+    playerHealth=$(cat data/playerHealth.dat)
+    playerMaxHealth=$(cat data/playerMaxHealth.dat)
+    gold=$(cat data/playerGold.dat)
+    username=$(cat data/playerName.dat)
+    inv1=$(cat data/playerInventory.dat | grep Slot 1:)
+    inv2=$(cat data/playerInventory.dat | grep Slot 2:)
+    inv3=$(cat data/playerInventory.dat | grep Slot 3:)
+    inv4=$(cat data/playerInventory.dat | grep Slot 4:)
     debug=$(cat data/debug.dat)
 }
 
@@ -41,7 +42,7 @@ echo  > errorHandling/errorMessage.dat
 if [[ $username == "" ]]
 then
     username="Player"
-    echo Username: Player > data/username.dat
+    echo Username: Player > data/playerName.dat
 else
     echo
 fi
@@ -192,8 +193,8 @@ main() {
         if [[ $randEncounter == 8 ]]
         then
             # casino elf
-            echo You encounter an elf. He offers to let you put 5 gold in for a chance to double it. 
-            echo If the dice is not in your favour, you will lose 10 gold. Do you accept?
+            #echo You encounter an elf. He offers to let you put 5 gold in for a chance to double it. 
+            #echo If the dice is not in your favour, you will lose 10 gold. Do you accept?
 
             
             sleep 1
@@ -252,8 +253,7 @@ main() {
     then
         # +5 gold // DEBUG FUNCTION
         addedGold=$(expr $gold + 5 )
-        playerHealth=$(cat data/health.dat | grep Health: )
-        gold=$(cat data/gold.dat | grep Gold: )
+        echo $gold > data/playerGold.dat
     fi
 
     if [[ $mainChoice == "crash" ]]
@@ -280,7 +280,7 @@ foundGold() {
     echo You found 10 gold on the ground!
     echo +10 Gold
     addedGold=$(expr $gold + 10)
-    echo $addedGold > data/gold.dat
+    echo $addedGold > data/playerGold.dat
     sleep 3
     main
 }
@@ -291,13 +291,14 @@ xpGain() {
     xp=$(expr $xp + 15)
     echo You got XP!
     echo +15 XP
-    echo $xp > data/xp.dat
+    echo $xp > data/playerXp.dat
     sleep 3
     main
 }
 
 # Win fight
 win() {
+    # be sure to fetch enemy name once feature is implemented
     additionalMessage="$username won a fight against a $enemy"
     echo You won!
     sleep 5
@@ -317,4 +318,3 @@ while [ $alive=1 ]
 do
     main
 done
-
