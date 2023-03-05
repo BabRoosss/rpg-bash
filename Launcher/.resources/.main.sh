@@ -28,11 +28,14 @@ clear
 if [[ $debug == debug ]]
 then
     echo Debug mode enabled
-    sleep 3
+    sleep 1
 else
     echo
 fi
 
+# Initiate error check
+echo 1 > errorHandling/error.dat
+echo  > errorHandling/errorMessage.dat
 
 
 if [[ $username == "" ]]
@@ -44,7 +47,7 @@ else
 fi
 
 ## INIT ERROR HANDELING VARIABLE
-error="error"
+error="1"
 
 ## MAIN GAME CODE
 alive=1
@@ -255,7 +258,8 @@ main() {
 
     if [[ $mainChoice == "crash" ]]
     then
-        echo
+        echo Crash Message: User initiated crash. > errorHandling/errorMessage.dat
+        exit
     fi 
 }
 
@@ -305,7 +309,7 @@ lose() {
     echo $deathMessage
     sleep 5
     read -p "Press Enter to Exit"
-    exit
+    bash ../main.sh
 }
 
 # Main Loop

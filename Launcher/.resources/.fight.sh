@@ -1,9 +1,9 @@
 #!/bin/sh
 fighting=1
-playerHealth=$(jq -r .health data/playerStats.json)
+playerHealth=
 ## Entity Health
-enemyHealth=50
-enemyMax=50
+enemyHealth=$()
+enemyMax=
 
 ## Enemy Name
 enemy=Thing

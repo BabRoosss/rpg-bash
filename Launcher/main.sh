@@ -1,37 +1,25 @@
 #!/bin/sh
-
 echo $1 > .resources/data/debug.dat
-
-
 pwd
-error1=$(cat .resources/errorHandling/error.dat)
 error2=$(cat errorHandling/error.dat)
-errorMessage1=$(cat .resources/errorHandling/errorMessage.dat)
 errorMessage2=$(cat errorHandling/errorMessage.dat)
-
 main=True
-cd ..
-cd Launcher
 username=$(cat .resources/data/username.dat)
 while [ $main == True ]
 do
-    
+    error2=$(cat .resources/errorHandling/error.dat)
+    errorMessage2=$(cat .resources/errorHandling/errorMessage.dat)
+    username=$(cat .resources/data/username.dat)
     ## ERROR CHECKING
-    if [[ $error1 == "1" ]]
-    then
-        echo if you are seeing this, something went wrong.
-    else
-        sleep 0.01
-    fi
-
     if [[ $error2 == "1" ]]
     then
-        echo if you are seeing this, something went wrong.
+        echo The game crashed! The below message may have some more info.
+        echo $errorMessage2
     else
         sleep 0.01
     fi
-    
-    clear
+    echo 0 > .resources/errorHandling/error.dat
+    echo   > .resources/errorHanding/errorMessage.dat
     echo 
     echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     echo            Bab RPG Game Launcher
