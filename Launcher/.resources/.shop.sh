@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #Check if player still has gold.
-gold=$(jq -r .gold data/playerStats.json)
-username=$(jq -r .username data/username.json)
+gold=$(cat data/gold.dat)
+username=$(cat data/username.dat)
 if [[ $gold == 0 || $gold < 0 ]]
 then
     echo poor lol
@@ -24,7 +24,7 @@ if [[ $shop == 1 ]]
 then
     
     # Get health as variable.
-    health=$(jq -r .health data/playerStats.json)
+    health=$(cat data/health.dat)
     
     # Is the players health over or at 100?
     if [[ $health < 100 ]]
@@ -37,16 +37,17 @@ then
         potionHealth=1
 
         ## GET GOLD AND PLAYER HEALTH
-        gold=$(jq -r .gold data/playerStats.json)
+        gold=$(cat data/gold.dat)
         subGold=$(expr $gold - 25)
         addedHealth=$(expr $health + 25)
 
         ## MAKE UPDATED ENTRIES FOR HEALTH AND GOLD
-        sed -i '$s/}/,\n"gold":"'$subGold'"}/' data/playerStats.json
+        echo $addedHealth > data/health.dat
+        echo $subGold > data/gold.dat
         
         if [[ $potionHealth == "1" ]]
         then
-            sed -i '$s/}/,\n"health":"'$addedHealth'"}/' data/playerStats.json
+            echo $addedHealth > data/health.dat
             potionHealth=0
         fi
 

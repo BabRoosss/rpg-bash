@@ -14,7 +14,7 @@ fi
 if [[ $rest == "Y" || $rest == "y" || $rest == "" ]]
 then
     #Get health
-    health=$(jq -r .health data/playerStats.json)
+    health=$(cat data/health.dat)
 
     # Check if health is over 100
     if [[ $health -ge "100" ]]
@@ -22,7 +22,7 @@ then
         echo
     else
         addedHealth=$(expr $health + 15)
-        sed -i '$s/}/,\n"health":"'$addedHealth'"}/' data/playerStats.json
+        echo $addedHealth > data/health.dat
     fi
 
     echo Rested

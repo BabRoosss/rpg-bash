@@ -1,32 +1,39 @@
 #!/bin/sh
+cd .resources
+fetch() {
+    errorCheck=$(cat errorHandling/errorCheckStatus.dat)
+    playerHealth=$(cat data/health.dat)
+    gold=$(cat data/gold.dat)
+    username=$(cat data/username.dat)
+    inv1=$(cat data/inventory.dat | grep Slot 1:)
+    inv2=$(cat data/inventory.dat | grep Slot 2:)
+    inv3=$(cat data/inventory.dat | grep Slot 3:)
+    inv4=$(cat data/inventory.dat | grep Slot 4:)
+    debug=$(cat data/debug.dat)
+}
+
+fetch
+
+# Check if there are invalid variables
+if [[ $errorCheck != "checked" ]]
+then
+    bash .errorHandler.sh
+else
+    sleep 1
+fi
+
+clear
 
 # Check if debug mode is enabled
-cat data/debug.dat | grep debug
-read
-if [[  ]]
-
-cd .resources
-clear
-## FIND PLAYER STATS
-
-playerHealth=$(cat data/health.dat | grep Health: )
-gold=$(cat data/gold.dat | grep Gold: )
-username=$(cat data/username.dat | grep Username:)
-
-## FETCH INVENTORY
-inv4=$(cat data/inventory.dat | grep Slot 1:)
-inv4=$(cat data/inventory.dat | grep Slot 2:)
-inv4=$(cat data/inventory.dat | grep Slot 3:)
-inv4=$(cat data/inventory.dat | grep Slot 4:)
-
-## CHECK IF NEW PLAYER OF RECENTLY DELETED SAVE
-
-if [[ $playerHealth == "" ]]
+if [[ $debug == debug ]]
 then
-    data/playerStatsTemplate.dat > data/playerStats.json
+    echo Debug mode enabled
+    sleep 3
 else
     echo
 fi
+
+
 
 if [[ $username == "" ]]
 then
@@ -38,7 +45,6 @@ fi
 
 ## INIT ERROR HANDELING VARIABLE
 error="error"
-clear
 
 ## MAIN GAME CODE
 alive=1
@@ -88,14 +94,8 @@ error() {
 
 main() {
     ## FETCH INVENTORY & HEALTH
-    playerHealth=$(cat data/health.dat | grep Health: )
-    gold=$(cat data/gold.dat | grep Gold: )
-    username=$(cat data/username.dat | grep Username:)
-    inv1=$(cat data/inventory.dat | grep Slot 1:)
-    inv2=$(cat data/inventory.dat | grep Slot 2:)
-    inv3=$(cat data/inventory.dat | grep Slot 3:)
-    inv4=$(cat data/inventory.dat | grep Slot 4:)
-
+    fetch
+    
     # Make sure player isnt dead
     if [[ $playerHealth == 0 ]]
     then
@@ -121,9 +121,10 @@ main() {
     randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
 
     # Player stats
-    echo $username: $playerHealth/$playerMax
+    echo $username 
+    echo $playerHealth
     echo XP: $xp
-    echo Gold: $gold
+    echo $gold
     echo Attack: $attk
     echo 
     echo What would you like to do?
@@ -133,7 +134,21 @@ main() {
     echo 3. Die i guess
     echo 4. Exit
     echo 
-    read -p "> " mainChoice
+
+    if [[ $playerHealth == "ERROR" || $xp == "ERROR" || $gold == "ERROR" || $attk == "ERROR" ]]
+    then
+        echo ERROR, ESSENTIAL VALUE IS MISSING!
+        echo -e '\e[1A\e[KExiting to menu
+        sleep 1
+        echo -e '\e[1A\e[KExiting to menu .
+        sleep 1
+        echo -e '\e[1A\e[KExiting to menu . .
+        sleep 1
+        echo -e '\e[1A\e[KExiting to menu . . . 
+        bash ../main.sh
+    else
+        read -p "> " mainChoice
+    fi
 
     if [[ $mainChoice == "1" ]]
     then
@@ -211,29 +226,37 @@ main() {
     if [[ $mainChoice == "4" ]]
     then
         # Exit
-        error="no error"
+        echo not checked > errorHandling/errorCheckStatus.dat
+        echo allGood > errorHandling/error.dat
         bash ../main.sh
     fi
 
-    if [[ $mainChoice == "reload" && debug == "enabled" ]]
+    if [[ $mainChoice == "reload" && debug == "debug" ]]
     then
         # Reset the game //DEBUG FUNCTION
+        echo not checked > errorHandling/errorCheckStatus.dat
+        echo allGood > errorHandling/error.dat
         bash start.sh
     fi
 
-    if [[ $mainChoice == "5" && debug == "enabled" ]]
+    if [[ $mainChoice == "5" && debug == "debug" ]]
     then
         # Open shop // DEBUG FUNCTION
         bash .shop.sh
     fi
 
-    if [[ $mainChoice == "6" && debug == "enabled"]]
+    if [[ $mainChoice == "6" && $debug == "debug" ]]
     then
         # +5 gold // DEBUG FUNCTION
         addedGold=$(expr $gold + 5 )
         playerHealth=$(cat data/health.dat | grep Health: )
         gold=$(cat data/gold.dat | grep Gold: )
     fi
+
+    if [[ $mainChoice == "crash" ]]
+    then
+        echo
+    fi 
 }
 
 ## INVENTORY MANAGER // TODO: IMPLEMENT PROPPER INVENTORY MANAGER

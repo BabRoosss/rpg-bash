@@ -19,7 +19,7 @@ do
     then
         # Changing username
         read -p "Input a username: " player
-        echo Username: $player > data/username.dat
+        echo $player > data/username.dat
         echo Username changed to $player!
         sleep 3
     fi
@@ -57,12 +57,16 @@ do
                 rm data/*.json
 
                 rm data/*.dat   
-                cp data/templates/health.dat data/health.dat
-                cp data/templates/inventory.dat data/inventory.dat
-                cp data/templates/level.dat data/level.dat
-                cp data/templates/xp.dat data/xp.dat
-                touch data/username.dat 
-                touch data/tmp.dat
+                #cp data/templates/health.dat data/health.dat
+                #cp data/templates/inventory.dat data/inventory.dat
+                #cp data/templates/level.dat data/level.dat
+                #cp data/templates/xp.dat data/xp.dat
+                #cp data/templates/gold.dat data/gold.dat
+                #cp data/templates/error.dat data/error.dat
+                #touch data/username.dat 
+                #touch data/tmp.dat
+                #touch data/debug.dat
+                cp data/templates/*.dat data/
             else
                 echo Canceling . . .
             fi
