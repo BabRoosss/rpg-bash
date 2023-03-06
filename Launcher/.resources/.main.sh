@@ -126,7 +126,7 @@ main() {
 
     # Player stats
     echo $username 
-    echo $playerHealth
+    echo $playerHealth/$playerMaxHealth
     echo XP: $xp
     echo $gold
     echo Attack: $attk
@@ -161,7 +161,10 @@ main() {
         randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
         if [[ $randEncounter == 1 ]]
         then
+            monsterEncounter=$(python -S -c "import random; print(random.randrange(1,5))")
+            echo $monsterEncounter > data/monsterSelected.dat
             bash .fight.sh
+            
         fi
         if [[ $randEncounter == 2 ]]
         then
@@ -201,6 +204,7 @@ main() {
         fi
         if [[ $randEncounter == 9 ]]
         then
+            monsterEncounter=$(python -S -c "import random; print(random.randrange(1,5))")
             bash .fight.sh
         fi
         if [[ $randEncounter == 10 ]]
@@ -232,7 +236,8 @@ main() {
         # Exit
         echo not checked > errorHandling/errorCheckStatus.dat
         echo allGood > errorHandling/error.dat
-        bash ../main.sh
+        cd ..
+        bash main.sh
     fi
 
     if [[ $mainChoice == "reload" && debug == "debug" ]]
@@ -260,6 +265,11 @@ main() {
     then
         echo Crash Message: User initiated crash. > errorHandling/errorMessage.dat
         exit
+    fi 
+
+    if [[ $mainChoice == "fight" ]]
+    then
+        bash .fight.sh
     fi 
 }
 
