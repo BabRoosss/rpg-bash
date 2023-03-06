@@ -1,4 +1,6 @@
 #!/bin/sh
+cd ..
+cd Launcher
 clear
 echo $1 > .resources/data/debug.dat
 pwd

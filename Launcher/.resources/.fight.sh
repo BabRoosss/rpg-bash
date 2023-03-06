@@ -1,37 +1,15 @@
 #!/bin/sh
 fighting=1
 
-echo $monsterChosen
-
 monsterChosen=$(cat data/monsterSelected.dat)
 
-if [[ $monsterChosen == "1" ]]
+if [[ $monsterChosen == "" ]]
 then
-    echo thing > data/monsterSelected.dat
+    echo ErrorMonster > data/monsterSelected.dat
+    monsterChosen=$(cat data/monsterSelected.dat)
+else
+    echo
 fi
-
-if [[ $monsterChosen == "2" ]]
-then
-    echo Zombie > data/monsterSelected.dat
-fi
-
-if [[ $monsterChosen == "3" ]]
-then
-    echo Skeleton > data/monsterSelected.dat
-fi
-
-if [[ $monsterChosen == "4" ]]
-then
-    echo Shambling Horror > data/monsterSelected.dat
-fi
-
-if [[ $monsterChosen == "5" ]]
-then
-    echo Slime > data/monsterSelected.dat
-fi
-
-monsterChosen=$(cat data/monsterSelected.dat)
-echo $monsterChosen
 
 ## Entity Health
 enemyHealth=$(cat "data/monsterData/$monsterChosen/health.dat")
@@ -41,7 +19,7 @@ enemyMax=$(cat "data/monsterData/$monsterChosen/maxHealth.dat")
 enemy=$(cat "data/monsterData/$monsterChosen/name.dat")
 
 ## Monster Attack Strength
-mAttk=$(cat "data/monsterData/$monsterChosen/attack.dat")
+mAttk=$playerHealth
 
 ## Player Health
 playerHealth=$(cat data/playerHealth.dat)
@@ -60,12 +38,22 @@ clear
 
         playerHealth=$(expr $playerHealth - $mAttk)
         echo $playerHealth > data/playerHealth.dat
+        playerHealth=$(cat data/playerHealth.dat)
+        if [[ $playerHealth == 0 ]]
+        then
+            bash .gameOver.sh
+        fi
 
+        if [[ $playerHealth < 0 ]]
+        then
+            bash .gameOver.sh
+        fi
     }
     clear
-    deathMessage="Player looked at Thing for too long"
+    deathMessage=$(cat data/monsterData/$monsterChosen/playerDeathMessage.dat)
     if [[ $enemyHealth == 0 ]]
     then
+        echo  > data/monsterSelected.dat
         bash .main.sh win
     fi
     if [[ $playerHealth == 0 ]]
@@ -93,6 +81,7 @@ clear
     fi
     if [[ $choice == "2" ]]
     then
+        echo  > data/monsterSelected.dat
         echo You ran away!
         fighting=0
         bash .main.sh win
@@ -103,6 +92,7 @@ clear
     fi
     if [[ $enemyHealth == 0 ]]
     then
+        echo  > data/monsterSelected.dat
         additionalMessage="$username killed $enemy"
         bash .main.sh win
 

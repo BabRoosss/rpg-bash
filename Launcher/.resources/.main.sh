@@ -1,15 +1,11 @@
 #!/bin/sh
-cd .resources
 fetch() {
     errorCheck=$(cat errorHandling/errorCheckStatus.dat)
     playerHealth=$(cat data/playerHealth.dat)
     playerMaxHealth=$(cat data/playerMaxHealth.dat)
     gold=$(cat data/playerGold.dat)
     username=$(cat data/playerName.dat)
-    inv1=$(cat data/playerInventory.dat | grep Slot 1:)
-    inv2=$(cat data/playerInventory.dat | grep Slot 2:)
-    inv3=$(cat data/playerInventory.dat | grep Slot 3:)
-    inv4=$(cat data/playerInventory.dat | grep Slot 4:)
+    inv1=$(cat data/playerInventory.dat)
     debug=$(cat data/debug.dat)
 }
 
@@ -18,12 +14,13 @@ fetch
 # Check if there are invalid variables
 if [[ $errorCheck != "checked" ]]
 then
+    echo notChecked > errorHandling/errorCheckStatus.dat
     bash .errorHandler.sh
 else
     sleep 1
 fi
 
-clear
+
 
 # Check if debug mode is enabled
 if [[ $debug == debug ]]
@@ -113,11 +110,9 @@ main() {
     fi
     echo AHHHHH
     sleep 0.2
-
     # Set default death message
     deathMessage="$username Choked on Air"
     clear
-
     # Obsolete?
     echo $additionalMessage
 
@@ -205,16 +200,22 @@ main() {
         if [[ $randEncounter == 9 ]]
         then
             monsterEncounter=$(python -S -c "import random; print(random.randrange(1,5))")
+            echo $monsterEncounter > data/monsterSelected.dat
             bash .fight.sh
         fi
         if [[ $randEncounter == 10 ]]
         then
-            # add the devil
-            # STATS:
-            # name: destroyer of the plane of existence
-            # health: ?/?
-            # attack: a lot
-            echo 10
+            hardMode=$(cat data/HardMode.dat)
+
+            if [[ $hardMode == "hard" ]]
+            then
+                echo satan > data/monsterSelected.dat
+                bash fight.sh
+            else
+                echo You find a sealed door in the woods.
+                echo It is locked.
+                sleep 3
+            fi
             sleep 1
         fi
     fi
@@ -269,6 +270,9 @@ main() {
 
     if [[ $mainChoice == "fight" ]]
     then
+        echo Who do you want to fight?
+        read -p "> " fightChoice
+        echo $fightChoice > data/monsterSelected.dat
         bash .fight.sh
     fi 
 }
@@ -308,15 +312,18 @@ xpGain() {
 
 # Win fight
 win() {
-    # be sure to fetch enemy name once feature is implemented
+    enemy=$(cat "data/monsterData/$monsterChosen/name.dat")
     additionalMessage="$username won a fight against a $enemy"
     echo You won!
+    echo > data/monsterSelected.dat
     sleep 5
     xpGain
 }
 
 # Lose fight and print death message.
 lose() {
+
+    deathMessage=$(cat /data/monsterData/$monsterChosen/playerDeathMessage.dat)
     echo $deathMessage
     sleep 5
     read -p "Press Enter to Exit"

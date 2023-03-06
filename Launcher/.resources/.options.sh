@@ -88,4 +88,9 @@ do
         # Exit the loop
         options=0
     fi
+    if [[ $option == "Hard Mode" ]]
+    then
+        echo Secret hard mode activated.
+        echo hard > data/HardMode.dat
+    fi
 done
