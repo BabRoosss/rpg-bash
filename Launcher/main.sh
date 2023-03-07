@@ -1,17 +1,18 @@
 #!/bin/sh
 cd ..
 cd Launcher
+cd .resources
 clear
-echo $1 > .resources/data/debug.dat
+echo $1 > data/debug.dat
 pwd
 error2=$(cat errorHandling/error.dat)
 errorMessage2=$(cat errorHandling/errorMessage.dat)
 main=True
-username=$(cat .resources/data/playerName.dat)
+username=$(cat data/playerName.dat)
 while [ $main == True ]
 do
-    error1=$(cat .resources/errorHandling/error.dat)
-    errorMessage1=$(cat .resources/errorHandling/errorMessage.dat)
+    error1=$(cat errorHandling/error.dat)
+    errorMessage1=$(cat errorHandling/errorMessage.dat)
     username=$(cat data/playerName.dat)
     clear
     ## ERROR CHECKING
@@ -23,8 +24,8 @@ do
     else
         sleep 0.01
     fi
-    echo 0 > .resources/errorHandling/error.dat
-    echo   > .resources/errorHanding/errorMessage.dat
+    echo 0 > errorHandling/error.dat
+    echo   > errorHandling/errorMessage.dat
     echo 
     echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     echo            Bab RPG Game Launcher
@@ -42,15 +43,15 @@ do
 
     if [[ $inpt == 1 ]]
     then
-        bash .resources/start.sh
+        bash start.sh
     fi
     if [[ $inpt == 2 ]]
     then
-        bash .resources/.options.sh
+        bash options.sh
     fi
     if [[ $inpt == 3 ]]
     then
-        bash .resources/.about.sh
+        bash about.sh
     fi
     if [[ $inpt == 4 ]]
     then
@@ -60,5 +61,7 @@ done
 clear
 echo Goodbye!
 sleep 5
+cd ..
+cd Launcher
 clear
 $SHELL

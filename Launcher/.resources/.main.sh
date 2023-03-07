@@ -1,5 +1,7 @@
 #!/bin/sh
 fetch() {
+    activeWeapon=$(cat data/weapons/activeWeapon.dat)
+    attk=$(cat data/weapons/$activeWeapon/)
     errorCheck=$(cat errorHandling/errorCheckStatus.dat)
     playerHealth=$(cat data/playerHealth.dat)
     playerMaxHealth=$(cat data/playerMaxHealth.dat)
@@ -64,7 +66,6 @@ mAttk=20
 playerMax=100
 
 # Player Attack Strength
-attk=25
 
 ## Player XP
 xp=0
@@ -220,6 +221,10 @@ main() {
             if [[ $hardMode == "hard" ]]
             then
                 echo satan > data/monsterSelected.dat
+                bash fight.sh
+            elif [[ $hardMode == "dave" ]]
+            then
+                echo dave > data/monsterSelected.dat
                 bash fight.sh
             else
                 echo You find a sealed door in the woods.

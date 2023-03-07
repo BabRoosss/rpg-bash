@@ -92,5 +92,13 @@ do
     then
         echo Secret hard mode activated.
         echo hard > data/HardMode.dat
+        sleep 3
+    fi
+    if [[ $option == "dave Mode" ]]
+    then
+        echo Super secret dave mode activated.
+        echo dave > data/HardMode.dat
+        echo now think about what hell you have just unleashed.
+        sleep 3
     fi
 done

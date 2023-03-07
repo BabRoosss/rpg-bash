@@ -28,7 +28,7 @@ then
     maxHealth=$(cat data/playerMaxHealth.dat)
     
     # Is the players health over or at 100?
-    if [[ $health > $maxHealth ]]
+    if [[ $health == $maxHealth ]]
     then
         echo Sorry! I can\'t sell you this potion! Your health is already max!
         echo $health
