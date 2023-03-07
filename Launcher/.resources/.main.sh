@@ -238,7 +238,7 @@ main() {
     if [[ $mainChoice == "2" ]]
     then
         # Open inventory
-        inventory
+        bash .inventory.sh
     fi
 
     if [[ $mainChoice == "3" ]]
