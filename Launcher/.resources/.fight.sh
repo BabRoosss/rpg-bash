@@ -19,7 +19,7 @@ enemyMax=$(cat "data/monsterData/$monsterChosen/maxHealth.dat")
 enemy=$(cat "data/monsterData/$monsterChosen/name.dat")
 
 ## Monster Attack Strength
-mAttk=$playerHealth
+mAttk=$(cat "data/monsterData/$monsterChosen/attack.dat")
 
 ## Player Health
 playerHealth=$(cat data/playerHealth.dat)
@@ -44,7 +44,7 @@ clear
             bash .gameOver.sh
         fi
 
-        if [[ $playerHealth < 0 ]]
+        if [[ $playerHealth -lt 0 ]]
         then
             bash .gameOver.sh
         fi
@@ -61,7 +61,7 @@ clear
         bash .gameOver.sh
     fi
 
-    if [[ $playerHealth < 0 ]]
+    if [[ $playerHealth -lt 0 ]]
     then
         bash .gameOver.sh
     fi
@@ -102,7 +102,7 @@ clear
         bash .gameOver.sh
     fi
 
-    if [[ $playerHealth < 0 ]]
+    if [[ $playerHealth -lt 0 ]]
     then
         bash .gameOver.sh
     fi

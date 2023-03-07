@@ -11,9 +11,7 @@ username=$(cat .resources/data/playerName.dat)
 while [ $main == True ]
 do
     error1=$(cat .resources/errorHandling/error.dat)
-    error2=$(cat errorHandling/error.dat)
     errorMessage1=$(cat .resources/errorHandling/errorMessage.dat)
-    errorMessage2=$(cat errorHandling/errorMessage.dat)
     username=$(cat data/playerName.dat)
     clear
     ## ERROR CHECKING
@@ -25,8 +23,8 @@ do
     else
         sleep 0.01
     fi
-    echo 0 > errorHandling/error.dat
-    echo   > errorHanding/errorMessage.dat
+    echo 0 > .resources/errorHandling/error.dat
+    echo   > .resources/errorHanding/errorMessage.dat
     echo 
     echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     echo            Bab RPG Game Launcher

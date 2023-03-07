@@ -123,7 +123,7 @@ main() {
     echo $username 
     echo $playerHealth/$playerMaxHealth
     echo XP: $xp
-    echo $gold
+    echo Gold: $gold
     echo Attack: $attk
     echo 
     echo What would you like to do?
@@ -191,9 +191,19 @@ main() {
         if [[ $randEncounter == 8 ]]
         then
             # casino elf
-            #echo You encounter an elf. He offers to let you put 5 gold in for a chance to double it. 
-            #echo If the dice is not in your favour, you will lose 10 gold. Do you accept?
+            echo You encounter an elf. He offers to let you put 5 gold in for a chance to double it. 
+            echo If the dice is not in your favour, you will lose 10 gold. Do you accept?
 
+            read -p "[Y/n]>> " casinoChoice
+            if [[ $casinoChoice == "Y" || $casinoChoice == "y" || $casinoChoice == "" ]]
+            then
+                bash .casino.sh
+            elif [[ $casinoChoice == "N" || $casinoChoice == "n" ]]
+            then
+                echo
+            else
+                echo Please enter a valid option
+            fi
             
             sleep 1
         fi
