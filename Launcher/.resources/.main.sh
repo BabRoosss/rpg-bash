@@ -1,7 +1,7 @@
 #!/bin/sh
 fetch() {
     activeWeapon=$(cat data/weapons/activeWeapon.dat)
-    attk=$(cat data/weapons/$activeWeapon/)
+    attk=$(cat data/weapons/$activeWeapon/weaponAttack.dat)
     errorCheck=$(cat errorHandling/errorCheckStatus.dat)
     playerHealth=$(cat data/playerHealth.dat)
     playerMaxHealth=$(cat data/playerMaxHealth.dat)

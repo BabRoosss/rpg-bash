@@ -26,7 +26,8 @@ playerHealth=$(cat data/playerHealth.dat)
 playerMax=$(cat data/playerMaxHealth.dat)
 
 # Player Attack Strength
-attk=$(cat data/playerAttack.dat)
+activeWeapon=$(cat data/weapons/activeWeapon.dat)
+attk=$(cat data/weapons/$activeWeapon/weaponAttack.dat)
 
 # Main loop
 while [ True ]
@@ -53,6 +54,11 @@ clear
     deathMessage=$(cat data/monsterData/$monsterChosen/playerDeathMessage.dat)
     if [[ $enemyHealth == 0 ]]
     then
+        echo  > data/monsterSelected.dat
+        bash .main.sh win
+    fi
+    if [[ $enemyHealth -lt 0 ]]
+    then 
         echo  > data/monsterSelected.dat
         bash .main.sh win
     fi

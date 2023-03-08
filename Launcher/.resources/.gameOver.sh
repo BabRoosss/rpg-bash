@@ -1,6 +1,11 @@
 #!/bin/sh
+username=$(cat data/playerName.dat)
+playerDeathMessageMonster=$(cat data/monsterSelected.dat)
+playerDeathMessage=$(cat data/monsterData/$playerDeathMessageMonster/playerDeathMessage.dat)
 clear
 echo GAME OVER
+echo $username $playerDeathMessage
+
 sleep 3
 clear
 echo Try Again?

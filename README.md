@@ -19,3 +19,12 @@ Run the main.sh file in the Launcher directory.
 - Fixed player not dying when health went below 0
 - Fixed errors breifly showing.
 - Fixed directory issues when exiting to main menu
+
+### v 0.2.1
+- Changed player damage per hit from a static number to the attack per hit of the equiped weapon
+- Revamped shop to have 2 sections. (Weapons and Potions)
+- Added basic inventory system to manage weapons.
+- Made monsters die when health goes below 0
+- Fixed super secret boss's attack to now only do the 32-bit integer limit per hit.
+- Added 4 weapons.
+- Added catalogue for weapons and potion shop
