@@ -38,7 +38,5 @@ Run the main.sh file in the Launcher directory.
 - Made sure player couldn't win (or lose) an infinite amount of money
 - Implemented potions and inventory for potions
 - Fixed broken options option on main menu
-- Added a new monster
-- Added a new weapon
 - Removed most mentions of json
 - Fixed player data remover to also disown all weapons exept for the stick
