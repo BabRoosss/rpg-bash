@@ -47,11 +47,11 @@ do
     fi
     if [[ $inpt == 2 ]]
     then
-        bash options.sh
+        bash .options.sh
     fi
     if [[ $inpt == 3 ]]
     then
-        bash about.sh
+        bash .about.sh
     fi
     if [[ $inpt == 4 ]]
     then

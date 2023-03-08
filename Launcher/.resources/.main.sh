@@ -191,6 +191,7 @@ main() {
         fi
         if [[ $randEncounter == 8 ]]
         then
+            clear
             # casino elf
             echo You encounter an elf. He offers to let you put 5 gold in for a chance to double it. 
             echo If the dice is not in your favour, you will lose 10 gold. Do you accept?
@@ -290,9 +291,13 @@ main() {
         echo $fightChoice > data/monsterSelected.dat
         bash .fight.sh
     fi 
+    if [[ $mainChoice == "hot" ]]
+    then
+        bash .hotSpring.sh
+    fi
 }
 
-## INVENTORY MANAGER // TODO: IMPLEMENT PROPPER INVENTORY MANAGER
+## INVENTORY MANAGER
 inventory() {
     echo Inventory Slots
     echo 1. $inv1

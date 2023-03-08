@@ -44,7 +44,7 @@ do
         then
             echo Canceling . . .
         fi
-        if [[ $confirm == "Y" ]]
+        if [[ $confirm == "Y" || $confirm == "y" ]]
         then
             echo Please type "Delete User Data"
             confirm=""
@@ -52,10 +52,6 @@ do
             if [[ $confirm == "Delete User Data" ]]
             then
                 # Remove all data and copy in defaults.
-                
-                #leagacy support
-                rm data/*.json
-
                 rm data/*.dat   
                 #cp data/templates/health.dat data/health.dat
                 #cp data/templates/inventory.dat data/inventory.dat
@@ -67,6 +63,12 @@ do
                 #touch data/tmp.dat
                 #touch data/debug.dat
                 cp data/templates/*.dat data/
+                echo nope > data/weapons/bucket/owned.dat
+                echo nope > data/weapons/microphone/owned.dat
+                echo nope > data/weapons/oopsieBlade/owned.dat
+                echo yup > data/weapons/stick/owned.dat
+                echo nope > data/weapons/sword/owned.dat
+                echo stick > data/weapons/activeWeapon.dat
             else
                 echo Canceling . . .
             fi

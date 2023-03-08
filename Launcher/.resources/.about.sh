@@ -4,7 +4,7 @@ echo -----------------
 echo     Credits
 echo ----------------- 
 echo
-cat .resources/data/credits
+cat data/credits
 sleep 5
 echo
 read -p "Press Enter to Continue:"

@@ -37,11 +37,11 @@ fi
 if [[ $weaponBuy == "2" ]]
 then
     echo
-    echo Bought Potion of Strength for $sPrice
-    subGold=$(expr $playerGold - $bucketPrice)
+    echo Bought Potion of Strength for $strenghtPrice
+    subGold=$(expr $playerGold - $strenghtPrice)
     echo $subGold > data/playerGold.dat
-    echo - $bucketPrice gold
-    echo yup > data/potions/bucket/owned.dat
+    echo - $strenghtPrice gold
+    echo yup > data/potions/strenght/owned.dat
     sleep 3
 fi
 
@@ -51,7 +51,7 @@ then
     echo Bought Potion of Invisibility for $invisibilityPrice
     subGold=$(expr $playerGold - $microphonePrice)
     echo $subGold > data/playerGold.dat
-    echo - $microphonePrice gold
+    echo - $invisibilityPrice gold
     echo yup > data/potions/invisibility/owned.dat
     sleep 3
 fi
