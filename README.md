@@ -40,3 +40,14 @@ Run the main.sh file in the Launcher directory.
 - Fixed broken options option on main menu
 - Removed most mentions of json
 - Fixed player data remover to also disown all weapons exept for the stick
+- Fixed player overhealing from the hot spring
+
+### v 0.3.1
+- Added ability to buy potions
+- Added stats for potions
+- Added "Mods" menu
+
+### v 0.4
+- Added mods. Only working type is the weapon mod.
+- Fixed printing win and lose conditions
+- "Added" potion shop (still broken)

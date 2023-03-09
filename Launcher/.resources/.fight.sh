@@ -32,7 +32,6 @@ attk=$(cat data/weapons/$activeWeapon/weaponAttack.dat)
 # Main loop
 while [ True ]
 do
-clear
     monsterAttk() {
         echo $enemy attacked $username and dealt $mAttk damage!
         sleep 2
@@ -54,13 +53,13 @@ clear
     deathMessage=$(cat data/monsterData/$monsterChosen/playerDeathMessage.dat)
     if [[ $enemyHealth == 0 ]]
     then
-        echo  > data/monsterSelected.dat
-        bash .main.sh win
+        additionalMessage="$username killed $enemy"
+        bash .win.sh 
     fi
     if [[ $enemyHealth -lt 0 ]]
-    then 
-        echo  > data/monsterSelected.dat
-        bash .main.sh win
+    then
+        additionalMessage="$username killed $enemy"
+        bash .win.sh 
     fi
     if [[ $playerHealth == 0 ]]
     then
@@ -98,9 +97,13 @@ clear
     fi
     if [[ $enemyHealth == 0 ]]
     then
-        echo  > data/monsterSelected.dat
         additionalMessage="$username killed $enemy"
-        bash .main.sh win
+        bash .win.sh 
+    fi
+    if [[ $enemyHealth -lt 0 ]]
+    then
+        additionalMessage="$username killed $enemy"
+        bash .win.sh 
 
     fi
     if [[ $playerHealth == 0 ]]

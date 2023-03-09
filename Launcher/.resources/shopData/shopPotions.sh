@@ -31,38 +31,43 @@ then
     echo $subGold > data/playerGold.dat
     echo - $healthPrice gold
     echo yup > data/potions/health/owned.dat
+    quantityOwned=$(cat data/potions/healing/quantity)
+    quantityOwned=$(expr $quantityOwned - 1)
     sleep 3
 fi
 
 if [[ $weaponBuy == "2" ]]
 then
     echo
-    echo Bought Potion of Strength for $strenghtPrice
+    echo Bought a Potion of Strength for $strenghtPrice
     subGold=$(expr $playerGold - $strenghtPrice)
     echo $subGold > data/playerGold.dat
     echo - $strenghtPrice gold
     echo yup > data/potions/strenght/owned.dat
-    sleep 3
+    quantityOwned=$(cat data/potions/strenght/quantity.dat)
+    quantityOwned=$(expr $quantityOwned - 1)
 fi
 
 if [[ $weaponBuy == "3" ]]
 then
     echo
-    echo Bought Potion of Invisibility for $invisibilityPrice
-    subGold=$(expr $playerGold - $microphonePrice)
+    echo Bought a Potion of Invisibility for $invisibilityPrice
+    subGold=$(expr $playerGold - $invisibilityPrice)
     echo $subGold > data/playerGold.dat
     echo - $invisibilityPrice gold
     echo yup > data/potions/invisibility/owned.dat
-    sleep 3
+    quantityOwned=$(cat data/potions/invisibility/quantity.dat)
+    quantityOwned=$(expr $quantityOwned + 1)
 fi
 
 if [[ $potionBuy == "4" ]]
 then
     echo
-    echo Bought Potion of Harming for $harmingPrice
+    echo Bought a Potion of Harming for $harmingPrice
     subGold=$(expr $playerGold - $harmingPrice)
     echo $subGold > data/playerGold.dat
     echo - $harmingPrice gold
     echo yup > data/potions/harming/owned.dat
-    sleep 3
+    quantityOwned=$(cat data/potions/harming/quantity.dat)
+    quantityOwned=$(expr $quantityOwned + 1)
 fi

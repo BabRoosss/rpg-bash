@@ -7,9 +7,9 @@ echo $1 > data/debug.dat
 pwd
 error2=$(cat errorHandling/error.dat)
 errorMessage2=$(cat errorHandling/errorMessage.dat)
-main=True
+main="True"
 username=$(cat data/playerName.dat)
-while [ $main == True ]
+while [ $main == "True" ]
 do
     error1=$(cat errorHandling/error.dat)
     errorMessage1=$(cat errorHandling/errorMessage.dat)
@@ -35,8 +35,9 @@ do
     echo
     echo 1. Play
     echo 2. Options
-    echo 3. About
-    echo 4. Exit
+    echo 3. Mods
+    echo 4. About
+    echo 5. Exit
     echo
     
     read -p "> " inpt
@@ -51,11 +52,15 @@ do
     fi
     if [[ $inpt == 3 ]]
     then
-        bash .about.sh
+        bash .mods.sh
     fi
     if [[ $inpt == 4 ]]
     then
-        main=False
+        bash .about.sh
+    fi
+    if [[ $inpt == 5 ]]
+    then
+        main="False"
     fi
 done
 clear

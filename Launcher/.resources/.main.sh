@@ -138,13 +138,14 @@ main() {
     if [[ $playerHealth == "ERROR" || $xp == "ERROR" || $gold == "ERROR" || $attk == "ERROR" ]]
     then
         echo ERROR, ESSENTIAL VALUE IS MISSING!
-        echo -e '\e[1A\e[KExiting to menu
+        echo
+        echo -e '\e[1A\e[KExiting to menu'
         sleep 1
-        echo -e '\e[1A\e[KExiting to menu .
+        echo -e '\e[1A\e[KExiting to menu .'
         sleep 1
-        echo -e '\e[1A\e[KExiting to menu . .
+        echo -e '\e[1A\e[KExiting to menu . .'
         sleep 1
-        echo -e '\e[1A\e[KExiting to menu . . . 
+        echo -e '\e[1A\e[KExiting to menu . . .' 
         bash ../main.sh
     else
         read -p "> " mainChoice
@@ -157,7 +158,7 @@ main() {
         randEncounter=$(python -S -c "import random; print(random.randrange(1,10))")
         if [[ $randEncounter == 1 ]]
         then
-            monsterEncounter=$(python -S -c "import random; print(random.randrange(1,5))")
+            monsterEncounter=$(python -S -c "import random; print(random.randrange(1,6))")
             echo $monsterEncounter > data/monsterSelected.dat
             bash .fight.sh
             
@@ -211,7 +212,7 @@ main() {
         fi
         if [[ $randEncounter == 9 ]]
         then
-            monsterEncounter=$(python -S -c "import random; print(random.randrange(1,5))")
+            monsterEncounter=$(python -S -c "import random; print(random.randrange(1,6))")
             echo $monsterEncounter > data/monsterSelected.dat
             bash .fight.sh
         fi

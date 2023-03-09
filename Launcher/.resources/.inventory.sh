@@ -103,6 +103,16 @@ InventoryWeapons() {
         sleep 3
         InventoryWeapons
     fi
+
+
+    if [[ $changeWeapon == 5 ]]
+    then
+        echo Equipped the mod weapon. fucking finally.
+        modWeapon=$(cat mods/modList/mod01.dat)
+        echo $modWeapon > data/weapons/activeWeapon.dat
+        sleep 3
+    fi
+
     
     if [[ $changeWeapon == "exit" ]]
     then
