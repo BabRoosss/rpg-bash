@@ -48,6 +48,6 @@ Run the main.sh file in the Launcher directory.
 - Added "Mods" menu
 
 ### v 0.4
-- Added mods. Only working type is the weapon mod.
+- Added mods. Only working type is the weapon mod. Example mod is included.
 - Fixed printing win and lose conditions
 - "Added" potion shop (still broken)
