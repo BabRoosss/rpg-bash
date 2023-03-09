@@ -51,3 +51,8 @@ Run the main.sh file in the Launcher directory.
 - Added mods. Only working type is the weapon mod. Example mod is included.
 - Fixed printing win and lose conditions
 - "Added" potion shop (still broken)
+
+### v 0.4.1
+- Implemented propper weapon mod loading.
+- Alowed player to load up to 4 mod weapons
+- Modified Inventory to allow player to equip and see modded weapons

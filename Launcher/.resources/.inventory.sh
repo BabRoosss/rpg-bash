@@ -61,6 +61,29 @@ InventoryWeapons() {
     then
         echo 4. Nothing
     fi
+
+    mod01=$(cat mods/modList/mod01.dat)
+    mod02=$(cat mods/modList/mod02.dat)
+    mod03=$(cat mods/modList/mod03.dat)
+    mod04=$(cat mods/modList/mod04.dat)
+    if [[ mod01 != " " || mod02 != " " || mod03 != " " || mod04 != " " ]]
+    then 
+        echo 1 > mods/modsEnabled.dat
+    fi
+    if [[ mod01 == " " || mod02 == " " || mod03 == " " || mod04 == " " ]]
+    then 
+        echo 0 > mods/modsEnabled.dat
+    fi
+    modsEnabled=$(cat mods/modsEnabled.dat)
+
+    if [[ $modsEnabled == 1 ]]
+    then
+        echo
+        echo m1: $mod01
+        echo m2: $mod02
+        echo m3: $mod03
+        echo m4: $mod04
+    fi    
     echo 
     echo $activeWeapon
     echo
@@ -103,21 +126,91 @@ InventoryWeapons() {
         sleep 3
         InventoryWeapons
     fi
+    mod01=$(cat mods/modList/mod01.dat)
+    mod02=$(cat mods/modList/mod02.dat)
+    mod03=$(cat mods/modList/mod03.dat)
+    mod04=$(cat mods/modList/mod04.dat)
 
-
-    if [[ $changeWeapon == 5 ]]
+    if [[ $changeWeapon == m1 ]]
     then
-        echo Equipped the mod weapon. fucking finally.
-        modWeapon=$(cat mods/modList/mod01.dat)
-        echo $modWeapon > data/weapons/activeWeapon.dat
-        sleep 3
+        if [[ $mod01 == "Nothing" ]]
+        then
+            echo No mod loaded in this slot!
+            sleep 3
+        fi
+        if [[ $mod01 != "" ]]
+        then
+            echo Equipped the mod weapon1. fucking finally.
+            modWeapon=$(cat mods/modList/mod01.dat)
+            echo $modWeapon > data/weapons/activeWeapon.dat
+            sleep 3
+        else
+            echo No mod present!
+            sleep 3
+        fi
+    fi
+    if [[ $changeWeapon == m2 ]]
+    then
+        if [[ $mod02 == "Nothing" ]]
+        then
+            echo No mod loaded in this slot!
+            sleep 3
+        fi
+        if [[ $mod02 != "" ]]
+        then
+            echo Equipped the mod weapon2. fucking finally.
+            modWeapon=$(cat mods/modList/mod02.dat)
+            echo $modWeapon > data/weapons/activeWeapon.dat
+            sleep 3
+        else
+            echo No mod present!
+            sleep 3
+        fi
+    fi
+    if [[ $changeWeapon == m3 ]]
+    then
+        if [[ $mod03 == "Nothing" ]]
+        then
+            echo No mod loaded in this slot!
+            sleep 3
+        fi
+        if [[ $mod03 != "" ]]
+        then
+            echo Equipped the mod weapon3. fucking finally.
+            modWeapon=$(cat mods/modList/mod03.dat)
+            echo $modWeapon > data/weapons/activeWeapon.dat
+            sleep 3
+        else
+            echo No mod present!
+            sleep 3
+        fi
+    fi
+    if [[ $changeWeapon == m4 ]]
+    then
+        if [[ $mod04 == "Nothing" ]]
+        then
+            echo No mod loaded in this slot!
+            sleep 3
+        fi
+        if [[ $mod04 != "" ]]
+        then
+            echo Equipped the mod weapon4. fucking finally.
+            modWeapon=$(cat mods/modList/mod04.dat)
+            echo $modWeapon > data/weapons/activeWeapon.dat
+            sleep 3
+        else
+            echo No mod present!
+            sleep 3
+        fi
     fi
 
-    
     if [[ $changeWeapon == "exit" ]]
     then
         bash .main.sh
     fi
 }
 
-InventoryWeapons
+while [ 1==1 ]
+do
+    InventoryWeapons
+done
