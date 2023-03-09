@@ -9,7 +9,7 @@ Run the main.sh file in the Launcher directory.
 - bash
 
 ## Known Bugs
-- Error check value doesn't properly clear
+None!
 
 ## Changelog
 
