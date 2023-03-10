@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Remeber, the house always wins!
-gamblingAddiction=True
-while [ $gamblingAddiction = True ]
+gamblingAddiction=
+for gamblingAddiction in 1 2 3 4 5
 do
     # Fetch needed varables
     gold=$(cat data/playerGold.dat)
@@ -31,10 +31,16 @@ do
         then
             echo
             echo You walked out of the casino . . .
-            addedGold=$(expr $gold + $winnings)
-            echo $addedGold > data/playerGold.dat
-            sleep 3
-            bash .main.sh
+            echo
+            if [[ $winnings == "" ]]
+            then
+                bash .main.sh
+            else
+                addedGold=$(expr $gold + $winnings)
+                echo $addedGold > data/playerGold.dat
+                sleep 3
+                bash .main.sh
+            fi
         fi
         
         if [[ $casinoBet == "help" ]]
@@ -83,9 +89,7 @@ do
                 winnings=$(expr $winnings - $moreGold)
                 if [[ $winnings -lt -30 || $winnings == -30 ]]
                 then 
-                    echo You left the casino after losing $winnings gold
-                    sleep 2
-                    bash .main.sh
+                    break
                 else
                     sleep 2
                 fi
@@ -96,3 +100,6 @@ do
         fi
     fi
 done
+echo You left the casino after losing $winnings gold
+sleep 2
+bash .main.sh

@@ -140,7 +140,7 @@ InventoryWeapons() {
         fi
         if [[ $mod01 != "" ]]
         then
-            echo Equipped the mod weapon1. fucking finally.
+            echo Equipped $mod01
             modWeapon=$(cat mods/modList/mod01.dat)
             echo $modWeapon > data/weapons/activeWeapon.dat
             sleep 3
@@ -158,7 +158,7 @@ InventoryWeapons() {
         fi
         if [[ $mod02 != "" ]]
         then
-            echo Equipped the mod weapon2. fucking finally.
+            echo Equipped $mod02
             modWeapon=$(cat mods/modList/mod02.dat)
             echo $modWeapon > data/weapons/activeWeapon.dat
             sleep 3
@@ -176,7 +176,7 @@ InventoryWeapons() {
         fi
         if [[ $mod03 != "" ]]
         then
-            echo Equipped the mod weapon3. fucking finally.
+            echo Equipped $mod03
             modWeapon=$(cat mods/modList/mod03.dat)
             echo $modWeapon > data/weapons/activeWeapon.dat
             sleep 3
@@ -194,7 +194,7 @@ InventoryWeapons() {
         fi
         if [[ $mod04 != "" ]]
         then
-            echo Equipped the mod weapon4. fucking finally.
+            echo Equipped $mod04
             modWeapon=$(cat mods/modList/mod04.dat)
             echo $modWeapon > data/weapons/activeWeapon.dat
             sleep 3

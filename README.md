@@ -56,3 +56,8 @@ None!
 - Implemented propper weapon mod loading.
 - Alowed player to load up to 4 mod weapons
 - Modified Inventory to allow player to equip and see modded weapons
+
+### v 0.4.1
+- Fixed weapon mod loading
+- Fixed casino leaving a null value in the gold counter
+- Changed a few messages

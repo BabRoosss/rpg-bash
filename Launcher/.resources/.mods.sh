@@ -85,7 +85,7 @@ do
         read -p "> " modSlot
         echo yes > mods/$modEnable/enable.dat
         modType=$(cat mods/$modEnable/type.dat)
-        if [[ $modType == "weapon" ]]
+        if [[ $modType == "weapons" ]]
         then
             modTypeDirectory="weapons"
         fi
