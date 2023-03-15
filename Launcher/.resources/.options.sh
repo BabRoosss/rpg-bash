@@ -11,8 +11,9 @@ do
     echo Please make a selection:
     echo 1. Change username
     echo 2. Delete all user data
-    echo 3. dave
-    echo 4. Exit
+    echo 3. Clean unused mods
+    echo 4. dave
+    echo 5. Exit
     echo
     read -p ">> " option
     if [[ $option == 1 ]]
@@ -80,12 +81,17 @@ do
 
         sleep 1
     fi
+
     if [[ $option == 3 ]]
+    then
+        echo // TODO: IMPLEMENT CLEAN MODS
+    fi
+    if [[ $option == 4 ]]
     then
         # dave
         cat /dev/random
     fi
-    if [[ $option == 4 ]]
+    if [[ $option == 5 ]]
     then
         # Exit the loop
         options=0

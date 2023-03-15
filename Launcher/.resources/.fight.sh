@@ -1,4 +1,20 @@
 #!/bin/sh
+
+# Player Attack Strength
+activeWeapon=$(cat data/weapons/activeWeapon.dat)
+attk=$(cat data/weapons/$activeWeapon/weaponAttack.dat)
+if [[ $attk == "ERROR" ]]
+then
+    echo ERROR! WEAPON $activeWeapon ATTACK VALUE MISSING!
+    echo USING FALLBACK WEAPON
+    sleep 3
+    echo oopsieBlade > data/weapons/activeWeapon.dat
+    activeWeapon=$(cat data/weapons/activeWeapon.dat)
+    attk=$(cat data/weapons/$activeWeapon/weaponAttack.dat)
+else
+    echo
+fi
+
 fighting=1
 
 monsterChosen=$(cat data/monsterSelected.dat)
@@ -24,10 +40,6 @@ mAttk=$(cat "data/monsterData/$monsterChosen/attack.dat")
 ## Player Health
 playerHealth=$(cat data/playerHealth.dat)
 playerMax=$(cat data/playerMaxHealth.dat)
-
-# Player Attack Strength
-activeWeapon=$(cat data/weapons/activeWeapon.dat)
-attk=$(cat data/weapons/$activeWeapon/weaponAttack.dat)
 
 # Main loop
 while [ True ]

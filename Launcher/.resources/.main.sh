@@ -13,6 +13,11 @@ fetch() {
 
 fetch
 
+if [[ $attk == "" ]]
+then
+    echo ERROR > data/weapons/$activeWeapon/weaponAttack.dat
+fi
+
 # Check if there are invalid variables
 if [[ $errorCheck != "checked" ]]
 then
@@ -109,6 +114,10 @@ main() {
     else
         echo
     fi
+    if [[ $attk == "" ]]
+    then
+        echo ERROR > data/weapons/$activeWeapon/weaponAttack.dat
+    fi
     echo AHHHHH
     sleep 0.2
     # Set default death message
@@ -135,7 +144,7 @@ main() {
     echo 4. Exit
     echo 
 
-    if [[ $playerHealth == "ERROR" || $xp == "ERROR" || $gold == "ERROR" || $attk == "ERROR" ]]
+    if [[ $playerHealth == "ERROR" || $xp == "ERROR" || $gold == "ERROR" ]]
     then
         echo ERROR, ESSENTIAL VALUE IS MISSING!
         echo

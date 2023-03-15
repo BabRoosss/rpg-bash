@@ -26,6 +26,7 @@ do
     echo
     echo Type enable to enable a mod
     echo Type disable to disable a mod
+    echo Type "list" to list all mods.
     echo Type exit to leave
     read -p "> " modEnable
 
@@ -106,5 +107,16 @@ do
 
         #manual slot loading
         echo $modEnable > mods/modList/$modSlot.dat
+    fi
+    
+    if [[ $modEnable == "list" ]]
+    then
+        cd mods
+        pwd
+        tree -d -L 1
+        sleep 3
+        echo 
+        read -p "Press Enter to Exit . . . "
+        cd ..
     fi
 done
